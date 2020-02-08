@@ -13,7 +13,7 @@ function getScrollPosition() {
     }
 }
 
-//Search Toggle
+//* Search Toggle
 const searchInputBox = document.getElementById("search_input_box")
 const searchOne = document.getElementById("search_1")
 const closeSearch = document.getElementById("close_search");
@@ -26,4 +26,20 @@ searchOne.addEventListener("click", () => {
 closeSearch.addEventListener("click", (e) => {
     e.preventDefault()
     searchInputBox.style.display = "none"
+})
+
+// *Hamburger Change
+const hamburger = document.getElementById("hamburger")
+const barsMobile = document.getElementById("bars-mobile");
+
+
+hamburger.addEventListener("click", () => {
+    if (barsMobile.className == "fas fa-bars") {
+        barsMobile.className = "fas fa-times"
+        document.body.style.overflowY = "hidden"
+    } else {
+        barsMobile.className = "fas fa-bars"
+        document.body.style.overflowY = "visible"
+    }
+
 })
