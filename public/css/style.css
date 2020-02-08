@@ -214,10 +214,6 @@ body {
   }
 }
 
-body {
-  height: 5000px;
-}
-
 .menu_fixed {
   position: fixed;
   z-index: 9999 !important;

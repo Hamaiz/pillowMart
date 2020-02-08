@@ -18,7 +18,7 @@ function getScrollPosition() {
 //* Search Toggle
 
 
-// (function ($) {
+// $(document).ready(function () {
 //     $("#search_input_box").hide();
 //     $("#search_1").on("click", function () {
 //         $("#search_input_box").slideToggle();
@@ -28,35 +28,23 @@ function getScrollPosition() {
 //         e.preventDefault()
 //         $("#search_input_box").slideUp(500)
 //     })
-// }(jQuery))
-
-$(document).ready(function () {
-    $("#search_input_box").hide();
-    $("#search_1").on("click", function () {
-        $("#search_input_box").slideToggle();
-        $("#search_input").focus();
-    });
-    $("#close_search").on("click", function (e) {
-        e.preventDefault()
-        $("#search_input_box").slideUp(500)
-    })
-}(jQuery));
+// }(jQuery));
 
 //? Mycode
-// const searchInputBox = document.getElementById("search_input_box")
-// const searchInput = document.getElementById("search_input")
-// const searchOne = document.getElementById("search_1")
-// const closeSearch = document.getElementById("close_search");
+var searchInputBox = document.getElementById("search_input_box")
+var searchInput = document.getElementById("search_input")
+var searchOne = document.getElementById("search_1")
+var closeSearch = document.getElementById("close_search");
 
-// searchInputBox.style.display = "none"
-// searchOne.addEventListener("click", () => {
-//     searchInputBox.style.display = searchInputBox.style.display === "none" ? "" : "none"
-// })
+searchInputBox.style.display = "none"
+searchOne.addEventListener("click", () => {
+    searchInputBox.style.display = searchInputBox.style.display === "none" ? "" : "none"
+})
 
-// closeSearch.addEventListener("click", (e) => {
-//     e.preventDefault()
-//     searchInputBox.style.display = "none"
-// })
+closeSearch.addEventListener("click", (e) => {
+    e.preventDefault()
+    searchInputBox.style.display = "none"
+})
 
 
 
