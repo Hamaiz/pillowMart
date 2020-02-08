@@ -271,7 +271,7 @@ body {
     width: 100%;
     text-align: center !important;
     height: 100vh;
-    background: #fff;
+    background: #eae1e9;
   }
   .dropdown .dropdown-menu {
     margin-top: 10px;
@@ -293,6 +293,7 @@ body {
     position: absolute;
     left: 0;
     border: none;
+    top: 1px;
   }
   .navbar-light .navbar-toggler i {
     color: #4b3049;
@@ -304,8 +305,8 @@ body {
     max-width: 120px;
     margin: 0 auto;
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 0px;
+    right: 10px;
     display: inline-block;
     top: 3px;
   }
