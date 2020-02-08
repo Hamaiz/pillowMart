@@ -267,7 +267,7 @@ body {
     z-index: 9999 !important;
     position: absolute;
     left: 0;
-    top: 50px;
+    top: 40px;
     width: 100%;
     text-align: center !important;
     height: 100vh;
@@ -297,6 +297,9 @@ body {
   .navbar-light .navbar-toggler i {
     color: #4b3049;
   }
+  .navbar-light .navbar-toggler:focus {
+    outline: none;
+  }
   .navbar-brand img {
     max-width: 120px;
     margin: 0 auto;
@@ -309,9 +312,12 @@ body {
   .main_menu .icons_mobile {
     margin-left: -10px;
   }
+  .main_menu .icons_mobile i {
+    font-size: 16px !important;
+  }
 }
 
-@media (max-height: 500px) {
+@media (max-height: 500px) and (max-width: 800px) {
   .navbar-collapse {
     height: 70vh !important;
   }
