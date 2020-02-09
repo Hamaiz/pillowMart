@@ -6,7 +6,7 @@ function getScrollPosition() {
         y: window.pageYOffset
     }
     var mainMenu = document.querySelector(".main_menu")
-    if (scrollObject.y < 50) {
+    if (scrollObject.y < 100) {
         mainMenu.classList.remove("menu_fixed")
     } else {
         mainMenu.classList.add("menu_fixed")
@@ -16,6 +16,8 @@ function getScrollPosition() {
 
 
 //* Search Toggle
+
+
 $(document).ready(function () {
     $("#search_input_box").hide();
     $("#search_1").on("click", function () {
@@ -29,10 +31,10 @@ $(document).ready(function () {
 }(jQuery));
 
 //? Mycode
-// var searchInputBox = document.getElementById("search_input_box")
-// var searchInput = document.getElementById("search_input")
-// var searchOne = document.getElementById("search_1")
-// var closeSearch = document.getElementById("close_search");
+// const searchInputBox = document.getElementById("search_input_box")
+// const searchInput = document.getElementById("search_input")
+// const searchOne = document.getElementById("search_1")
+// const closeSearch = document.getElementById("close_search");
 
 // searchInputBox.style.display = "none"
 // searchOne.addEventListener("click", () => {
