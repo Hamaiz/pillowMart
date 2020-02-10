@@ -63,3 +63,23 @@ hamburger.addEventListener("click", () => {
     }
 
 })
+
+var review = $(".client_review_slider");
+if (review.length) {
+    review.owlCarousel({
+        items: 1,
+        loop: true,
+        dots: true,
+        autoplay: true,
+        navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
+        autoplayHoverPause: true,
+        autoplayTimeout: 5000,
+        nav: true,
+        responsive: {
+            991: {
+                nav: true,
+            }
+        }
+
+    })
+}
