@@ -13,23 +13,6 @@ function getScrollPosition() {
     }
 }
 
-
-
-//* Search Toggle
-
-
-$(document).ready(function () {
-    $("#search_input_box").hide();
-    $("#search_1").on("click", function () {
-        $("#search_input_box").slideToggle();
-        $("#search_input").focus();
-    });
-    $("#close_search").on("click", function (e) {
-        e.preventDefault()
-        $("#search_input_box").slideUp(500)
-    })
-}(jQuery));
-
 //? Mycode
 // const searchInputBox = document.getElementById("search_input_box")
 // const searchInput = document.getElementById("search_input")
@@ -106,3 +89,21 @@ $('.popup-youtube').magnificPopup({
     preloader: false,
     fixedContentPos: false
 });
+
+$(document).ready(function () {
+    $("#search_input_box").hide();
+    $("#search_1").on("click", function () {
+        $("#search_input_box").slideToggle();
+        $("#search_input").focus();
+    });
+    $("#close_search").on("click", function (e) {
+        e.preventDefault()
+        $("#search_input_box").slideUp(500)
+    })
+
+    $(".select_option_dropdown").hide()
+    $(".select_option_list").click(function () {
+        $(this).parent(".select_option").children(".select_option_dropdown").slideToggle('100')
+        $(this).find(".right").toggleClass("fas fa-caret-down, fas fa-caret-up")
+    })
+}(jQuery));

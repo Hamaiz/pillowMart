@@ -416,6 +416,7 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   background-color: #b08ead;
+  text-transform: uppercase;
 }
 
 .breadcrumb_part .breadcrumb_inner {
@@ -803,13 +804,13 @@ body {
 
 @media (max-width: 991px) {
   .single_product_item {
-    padding: 30px;
+    margin-bottom: 30px;
   }
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
   .single_product_item {
-    padding: 30px;
+    margin-bottom: 30px;
   }
 }
 
@@ -820,11 +821,11 @@ body {
 }
 
 .single_product_item h3 {
-  font-size: 25px;
+  font-size: 24px;
   font-weight: 400;
   margin-top: 22px;
   line-height: 1.5;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 @media (max-width: 991px) {
@@ -851,7 +852,6 @@ body {
 .single_product_item p {
   font-size: 20px;
   color: #795376;
-  line-height: 2;
   font-weight: 400;
 }
 
@@ -997,6 +997,10 @@ body {
   .client_review .owl-dots .owl-dot.active {
     background: #4b3049;
   }
+}
+
+.feature_part {
+  background: #f5f0f4;
 }
 
 .feature_part .feature_part_title h3 {
@@ -1168,6 +1172,66 @@ body {
   }
 }
 
+.product_sidebar .single_sidebar {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.product_sidebar .single_sidebar input {
+  background: #f4edf2;
+  border-radius: 50px;
+  border: 1px solid #f4edf2;
+  padding: 13px 25px;
+  width: 100%;
+  line-height: 22px;
+}
+
+.product_sidebar .single_sidebar ::-webkit-input-placeholder {
+  color: #795376;
+}
+
+.product_sidebar .single_sidebar :-ms-input-placeholder {
+  color: #795376;
+}
+
+.product_sidebar .single_sidebar ::-ms-input-placeholder {
+  color: #795376;
+}
+
+.product_sidebar .single_sidebar ::placeholder {
+  color: #795376;
+}
+
+.product_sidebar .single_sidebar i {
+  position: absolute;
+  right: 30px;
+  top: 17px;
+}
+
+.select_option .select_option_list {
+  background: #f4edf2;
+  border-radius: 50px;
+  border: 1px solid #f4edf2;
+  padding: 13px 25px;
+  width: 100%;
+  line-height: 22px;
+  color: #795376;
+}
+
+.select_option .select_option_dropdown {
+  background: #f4edf2;
+  border: 1px solid #f4edf2;
+  border-radius: 10px;
+  padding: 13px 25px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.select_option .select_option_dropdown a {
+  color: #795376;
+  text-decoration: none;
+}
+
 .subscribe_part {
   background-color: #4b3049;
 }
@@ -1336,6 +1400,12 @@ body {
 @media (max-width: 991px) {
   .footer_part .footer_inner .footer_menu_item a {
     padding: 20px 30px 20px 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .footer_part .footer_inner .footer_menu_item a {
+    padding: 20px 20px 20px 0;
   }
 }
 
