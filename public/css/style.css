@@ -905,6 +905,67 @@ body {
   text-shadow: 1px 1px 1px #333;
 }
 
+.client_review .owl-nav button.owl-prev,
+.client_review .owl-nav button.owl-next {
+  outline: none;
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+  line-height: 40px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  position: absolute;
+  left: -26%;
+  top: 48%;
+  color: #4b3049;
+  background-color: white;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  text-align: center;
+}
+
+@media (max-width: 991px) {
+  .client_review .owl-nav button.owl-prev .owl-dots,
+  .client_review .owl-nav button.owl-next .owl-dots {
+    position: absolute;
+  }
+}
+
+.client_review .owl-nav button.owl-prev:hover,
+.client_review .owl-nav button.owl-next:hover {
+  color: #fff;
+  background: #4b3049;
+  border: none;
+}
+
+.client_review .owl-nav button.owl-next {
+  left: auto;
+  right: -26%;
+}
+
+@media (max-width: 991px) {
+  .client_review .owl-dots {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+    margin-top: 10px !important;
+  }
+  .client_review .owl-dots .owl-dot {
+    outline: none;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    display: inline-block;
+    border-radius: 50%;
+    margin: 0 10px;
+    text-align: center;
+  }
+  .client_review .owl-dots .owl-dot.active {
+    background: #4b3049;
+  }
+}
+
 .subscribe_part {
   background-color: #4b3049;
 }

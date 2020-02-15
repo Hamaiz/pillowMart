@@ -76,8 +76,22 @@ if (review.length) {
         autoplayTimeout: 5000,
         nav: true,
         responsive: {
-            991: {
-                nav: true,
+            0: {
+                nav: false,
+                dots: true
+            },
+            767: {
+                nav: false,
+                dots: true
+            },
+            992: {
+                nav: true
+            },
+            1200: {
+                nav: true
+            },
+            1600: {
+                nav: true
             }
         }
 
