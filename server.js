@@ -9,6 +9,7 @@ const expressLayouts = require("express-ejs-layouts")
 
 //* Routes
 const indexRouter = require("./routes/home")
+const aboutRouter = require("./routes/about")
 
 
 //* MiddleWares
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: false }))
 
 //*Routes
 app.use("/home", indexRouter)
+app.use("/about", aboutRouter)
 
 
 app.get("/", (req, res) => {
