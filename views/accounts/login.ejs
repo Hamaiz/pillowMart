@@ -1,0 +1,44 @@
+<%- include("../partials/breadcrumb") %>
+
+<div class="login_part">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="login_part_form text-center">
+                    <div class="login_part_form_inner ">
+                        <h3>
+                            Welcome Back !<br>
+                            Please Sign in now
+                        </h3>
+                        <%- include("../partials/message") %>
+                        <form action="/accounts/login" class="row contact_form" method="POST">
+
+                            <div class="col-md-12 form-group p_star">
+                                <input type="email" name="email" placeholder="Email" class="form-control">
+                            </div>
+
+                            <div class="col-md-12 form-group p_star">
+                                <input type="password" name="password" placeholder="Password" class="form-control">
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <div class="create_account d-flex align-items-center">
+                                    <input type="checkbox" id="f-option" name="remember_me" value="yes">
+                                    <label for="f-option">Remember me</label>
+                                </div>
+                                <button type="submit" class="btn_3">
+                                    LOG IN
+                                </button>
+                                <a href="" class="lost_pass">Forget Password?</a>
+                                <div class="register">
+                                    Don't have an account?
+                                    <a href="/accounts/register" class="sign_up">Register</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

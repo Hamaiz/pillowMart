@@ -1,0 +1,52 @@
+<%- include("../partials/breadcrumb", {title}) %>
+
+<div class="login_part">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="login_part_form text-center">
+                    <div class="login_part_form_inner" id="locateThis">
+                        <h3>
+                            Welcome! <br>
+                            Please Sign Up now
+                        </h3>
+                        <%- include("../partials/message") %>
+
+                        <form action="/accounts/register" class="row contact_form" method="POST" id="signUpForm">
+
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" name="name" placeholder="Username" class="form-control"
+                                    value=<%= typeof name != "undefined" ? name: "" %>>
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="email" name="email" placeholder="Email" class="form-control"
+                                    value=<%= typeof email != "undefined" ? email: "" %>>
+                            </div>
+
+                            <div class="col-md-12 form-group p_star">
+                                <input type="password" name="password" placeholder="Password" class="form-control"
+                                    value="<%= typeof password != 'undefined' ? password : '' %>">
+
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <!-- <div class="create_account d-flex align-items-center">
+                                    <input type="checkbox" id="f-option" name="selector">
+                                    <label for="f-option">Remember me</label>
+                                </div> -->
+                                <button type="submit" class="btn_3">
+                                    Sign Up
+                                </button>
+                                <!-- <a href="" class="lost_pass">Forget Password?</a> -->
+                                <div class="register">
+                                    Have an account?
+                                    <a href="/accounts/login" class="sign_up">Login</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,3 +1,16 @@
+//Loader
+
+$('body').css({
+    overflow: 'hidden'
+});
+$(window).on("load", function () {
+    $(".loader").fadeOut("slow", function () {
+        $('body').css({
+            overflow: 'auto'
+        });
+    })
+})
+
 //* Scrolling
 window.onscroll = getScrollPosition;
 
@@ -89,6 +102,7 @@ $('.popup-youtube').magnificPopup({
     preloader: false,
     fixedContentPos: false
 });
+
 
 $(document).ready(function () {
     $("#search_input_box").hide();
