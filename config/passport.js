@@ -29,34 +29,6 @@ function initialize(passport) {
             done(err, user)
         })
     })
-
-    // passport.serializeUser((user, done) => {
-    //     var createAccessToken = function () {
-    //         var token = user.generateRandomToken()
-    //         User.findOne({ accessToken: token }, (err, existingUser) => {
-    //             if (err) { return done(err) };
-    //             if (existingUser) {
-    //                 createAccessToken()
-    //             } else {
-    //                 user.set('accessToken', token)
-    //                 user.save((err) => {
-    //                     if (err) return done(err)
-    //                     return done(null, user.get('accessToken'))
-    //                 })
-    //             }
-    //         })
-    //     }
-
-    //     if (user._id) {
-    //         createAccessToken();
-    //     }
-    // })
-
-    // passport.deserializeUser((token, done) => {
-    //     User.findOne({ accessToken: token }, (err, user) => {
-    //         done(err, user)
-    //     })
-    // })
 }
 
 module.exports = initialize

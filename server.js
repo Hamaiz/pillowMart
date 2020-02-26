@@ -64,6 +64,9 @@ app.use("/home", indexRouter)
 app.use("/about", aboutRouter)
 app.use("/list", listRouter)
 app.use("/accounts", loginRouter)
+app.get("/", (req, res) => {
+    res.send("Startup Page")
+})
 
 
 //DataBase

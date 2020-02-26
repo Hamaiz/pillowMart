@@ -90,13 +90,6 @@ router.post("/login", forwardAuthenticated,
         },
 
     ),
-    // (req, res) => {
-    //     const { remember_me } = req.body;
-    //     if (remember_me == "yes") {
-    //         console.log('Done');
-    //         req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000
-    //     }
-    // },
 )
 
 router.delete("/logout", (req, res) => {
