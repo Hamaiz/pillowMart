@@ -76,9 +76,9 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                             user: process.env.GMAIL_USER,
                                             pass: process.env.GMAIL_PASS
                                         },
-                                        tls: {
-                                            rejectUnauthorized: false
-                                        }
+                                        // tls: {
+                                        //     rejectUnauthorized: false
+                                        // }
                                     })
 
                                     jwt.sign(
