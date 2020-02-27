@@ -76,7 +76,10 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                     }
 
                                     const transporter = nodemailer.createTransport({
-                                        service: "gmail",
+                                        // service: "gmail",
+                                        host: "smtp.gmail.com",
+                                        port: 465,
+                                        secure: true,
                                         auth: auth,
                                         tls: {
                                             rejectUnauthorized: false
