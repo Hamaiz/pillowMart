@@ -72,9 +72,9 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                             user: process.env.GMAIL_USER,
                                             pass: process.env.GMAIL_PASS
                                         },
-                                        // tls: {
-                                        //     rejectUnauthorized: false
-                                        // }
+                                        tls: {
+                                            rejectUnauthorized: false
+                                        }
                                     })
 
                                     jwt.sign(
@@ -91,10 +91,18 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                             const url = `https://pillowmart.herokuapp.com/confirmation/${emailToken}`
 
                                             transporter.sendMail({
+                                                from: '"PillowMart Verification" <workingeveryday2@gmail.com>',
                                                 to: email,
                                                 subject: "Confirm Email",
                                                 html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`
-                                            })
+                                            },
+                                                (err, info) => {
+                                                    if (err)
+                                                        console.log(err);
+                                                    else
+                                                        console.log(info);
+                                                }
+                                            )
                                         })
 
                                     res.redirect("confirm")
