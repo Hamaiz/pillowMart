@@ -2,6 +2,8 @@ const express = require("express")
 const router = express.Router()
 const bcrypt = require("bcryptjs")
 const passport = require("passport")
+const nodemailer = require('nodemailer')
+const jwt = require('jsonwebtoken')
 
 //Models
 const User = require("../models/User")
@@ -64,7 +66,42 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                         "success_msg",
                                         "You are now registered and can log in"
                                     )
-                                    res.redirect("login")
+                                    const transporter = nodemailer.createTransport({
+                                        service: "gmail",
+                                        // auth: {
+                                        //     user: process.env.GMAIL_USER,
+                                        //     pass: process.env.GMAIL_PASS
+                                        // },
+                                        auth: {
+                                            user: process.env.GMAIL_USER,
+                                            pass: process.env.GMAIL_PASS
+                                        },
+                                        tls: {
+                                            rejectUnauthorized: false
+                                        }
+                                    })
+
+                                    jwt.sign(
+                                        {
+                                            data: user._id,
+                                        },
+                                        process.env.EMAIL_SECRET,
+                                        {
+                                            expiresIn: "1d"
+                                        },
+                                        (err, emailToken) => {
+                                            // const url = `http://localhost:3000/confirmation/${emailToken}`
+
+                                            const url = `https://pillowmart.herokuapp.com/confirmation/${emailToken}`
+
+                                            transporter.sendMail({
+                                                to: email,
+                                                subject: "Confirm Email",
+                                                html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`
+                                            })
+                                        })
+
+                                    res.redirect("confirm")
                                 })
                                 .catch(err => console.log(err))
                         })
@@ -73,6 +110,12 @@ router.post("/register", forwardAuthenticated, (req, res) => {
             })
     }
 
+})
+
+router.get('/confirm', forwardAuthenticated, (req, res) => {
+    res.render('accounts/check', {
+        title: "Validation"
+    })
 })
 
 router.get("/login", forwardAuthenticated, (req, res) => {

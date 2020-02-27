@@ -20,6 +20,8 @@ const indexRouter = require("./routes/home")
 const aboutRouter = require("./routes/about")
 const listRouter = require("./routes/list")
 const loginRouter = require("./routes/login")
+const confirmationRouter = require('./routes/confirmation')
+
 const mongoose = require("mongoose")
 
 
@@ -64,6 +66,7 @@ app.use("/home", indexRouter)
 app.use("/about", aboutRouter)
 app.use("/list", listRouter)
 app.use("/accounts", loginRouter)
+app.use("/confirmation", confirmationRouter)
 app.get("/", (req, res) => {
     res.send("Startup Page")
 })

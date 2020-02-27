@@ -12,6 +12,12 @@ function initialize(passport) {
                     return done(null, false, { message: "This email is not registered" })
                 }
 
+                if (user.confirmed === false) {
+                    return done(null, false, { message: "Please Verify your account" })
+                    // console.log(user.confirmed);
+
+                }
+
                 bcrypt.compare(password, user.password, (err, isMatch) => {
                     if (err) throw err;
                     if (isMatch) {
@@ -20,6 +26,7 @@ function initialize(passport) {
                         return done(null, false, { message: "Password incorrect" })
                     }
                 })
+
             })
     }
     passport.use(new LocalStrategy({ usernameField: "email" }, authenticateUser))
