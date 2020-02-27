@@ -67,14 +67,18 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                         "You are now registered and can log in"
                                     )
                                     const transporter = nodemailer.createTransport({
-                                        service: "gmail",
+                                        // service: "gmail",
+                                        host: 'smtp.gmail.com',
+                                        port: 587,
+                                        secure: false,
+                                        requireTLS: true,
                                         auth: {
                                             user: process.env.GMAIL_USER,
                                             pass: process.env.GMAIL_PASS
                                         },
-                                        tls: {
-                                            rejectUnauthorized: false
-                                        }
+                                        // tls: {
+                                        //     rejectUnauthorized: false
+                                        // }
                                     })
 
                                     jwt.sign(
@@ -86,9 +90,9 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                             expiresIn: "1d"
                                         },
                                         (err, emailToken) => {
-                                            const url = `http://localhost:3000/confirmation/${emailToken}`
+                                            // const url = `http://localhost:3000/confirmation/${emailToken}`
 
-                                            // const url = `https://pillowmart.herokuapp.com/confirmation/${emailToken}`
+                                            const url = `https://pillowmart.herokuapp.com/confirmation/${emailToken}`
 
                                             transporter.sendMail({
                                                 from: '"PillowMart Verification" <workingeveryday2@gmail.com>',
