@@ -66,19 +66,25 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                         "success_msg",
                                         "You are now registered and can log in"
                                     )
+
+                                    var auth = {
+                                        type: 'OAuth2',
+                                        user: process.env.GMAIL_USER,
+                                        clientId: process.env.CLIENT_ID,
+                                        clientSecret: process.env.CLIENT_SECRET,
+                                        refreshToken: process.env.REFRESH_TOKEN,
+                                    }
+
                                     const transporter = nodemailer.createTransport({
-                                        // service: "gmail",
-                                        host: 'smtp.gmail.com',
-                                        port: 587,
-                                        secure: false,
-                                        requireTLS: true,
-                                        auth: {
-                                            user: process.env.GMAIL_USER,
-                                            pass: process.env.GMAIL_PASS
-                                        },
+                                        service: "gmail",
+                                        auth: auth,
                                         // tls: {
                                         //     rejectUnauthorized: false
                                         // }
+                                        // auth: {
+                                        // user: process.env.GMAIL_USER,
+                                        // pass: process.env.GMAIL_PASS
+                                        // },
                                     })
 
                                     jwt.sign(
@@ -102,7 +108,7 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                             },
                                                 (err, info) => {
                                                     if (err)
-                                                        console.log(err);
+                                                        console.error(err);
                                                     else
                                                         console.log(info);
                                                 }
