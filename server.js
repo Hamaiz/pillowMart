@@ -8,6 +8,7 @@ const app = express()
 const expressLayouts = require("express-ejs-layouts")
 const flash = require('express-flash')
 const session = require("express-session")
+const MongoStore = require("connect-mongo")(session)
 const passport = require("passport")
 const methodOverride = require("method-override")
 
@@ -35,6 +36,9 @@ app.use(express.urlencoded({ extended: false }))
 app.use(flash())
 app.use(session({
     secret: process.env.SESSION_SECRET,
+    store: new MongoStore({
+        url: process.env.DATABASE_URL
+    }),
     resave: false,
     saveUninitialized: false,
 }))

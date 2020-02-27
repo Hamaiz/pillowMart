@@ -86,9 +86,9 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                             expiresIn: "1d"
                                         },
                                         (err, emailToken) => {
-                                            // const url = `http://localhost:3000/confirmation/${emailToken}`
+                                            const url = `http://localhost:3000/confirmation/${emailToken}`
 
-                                            const url = `https://pillowmart.herokuapp.com/confirmation/${emailToken}`
+                                            // const url = `https://pillowmart.herokuapp.com/confirmation/${emailToken}`
 
                                             transporter.sendMail({
                                                 from: '"PillowMart Verification" <workingeveryday2@gmail.com>',
