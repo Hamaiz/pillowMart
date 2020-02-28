@@ -67,27 +67,23 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                         "You are now registered and can log in"
                                     )
 
-                                    var auth = {
-                                        type: 'OAuth2',
-                                        user: process.env.GMAIL_USER,
-                                        clientId: process.env.CLIENT_ID,
-                                        clientSecret: process.env.CLIENT_SECRET,
-                                        refreshToken: process.env.REFRESH_TOKEN,
-                                    }
+                                    // var auth = {
+                                    // type: 'OAuth2',
+                                    // user: process.env.GMAIL_USER,
+                                    // clientId: process.env.CLIENT_ID,
+                                    // clientSecret: process.env.CLIENT_SECRET,
+                                    // refreshToken: process.env.REFRESH_TOKEN,
+                                    // }
 
                                     const transporter = nodemailer.createTransport({
-                                        // service: "gmail",
-                                        host: "smtp.gmail.com",
-                                        port: 465,
-                                        secure: true,
-                                        auth: auth,
+                                        service: "gmail",
+                                        auth: {
+                                            user: process.env.GMAIL_USER,
+                                            pass: process.env.GMAIL_PASS
+                                        },
                                         tls: {
                                             rejectUnauthorized: false
                                         }
-                                        // auth: {
-                                        // user: process.env.GMAIL_USER,
-                                        // pass: process.env.GMAIL_PASS
-                                        // },
                                     })
 
                                     jwt.sign(
