@@ -179,6 +179,22 @@ body {
   }
 }
 
+@media (min-width: 1200px) and (max-width: 1500px), (min-width: 992px) and (max-width: 1199px) {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0px 0px 5px #b08ead;
+            box-shadow: inset 0px 0px 5px #b08ead;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #4b3049;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b08ead;
+  }
+}
+
 .btn_1 {
   display: inline-block;
   padding: 17px 50px;
