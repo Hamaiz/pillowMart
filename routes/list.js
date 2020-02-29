@@ -5,7 +5,9 @@ const { ensureAuthenticated } = require("../config/auth")
 
 router.get("/", ensureAuthenticated, (req, res) => {
     res.render("product/index", {
-        title: "product list"
+        pageName: "| List",
+        title: "product list",
+        haveAuth: false
     })
 })
 

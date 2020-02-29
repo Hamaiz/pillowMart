@@ -9,12 +9,14 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 //Models
 const User = require("../models/User")
-const { forwardAuthenticated } = require("../config/auth")
+const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth")
 
 
 router.get("/register", forwardAuthenticated, (req, res) => {
     res.render("accounts/signup", {
-        title: "sign up"
+        pageName: "| Register",
+        title: "sign up",
+        haveAuth: true
     })
 })
 router.post("/register", forwardAuthenticated, (req, res) => {
@@ -66,7 +68,7 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                 .then(user => {
                                     req.flash(
                                         "success_msg",
-                                        "You are now registered and can log in"
+                                        "You are now registered, Verify email to login"
                                     )
                                     //?Nodemailer
                                     // var auth = {
@@ -98,8 +100,8 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                             expiresIn: "1d"
                                         },
                                         (err, emailToken) => {
-                                            const url = `https://pillowmart.herokuapp.com/confirmation/${emailToken}`
-                                            // const url = `http://localhost:3000/confirmation/${emailToken}`
+                                            // const url = `https://pillowmart.herokuapp.com/confirmation/${emailToken}`
+                                            const url = `http://localhost:3000/confirmation/${emailToken}`
 
 
                                             //?Send Grid
@@ -133,7 +135,7 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                                                                                 <span style="color: #5d3c5b;font-size: 23px">Pillow
                                                                                                     Mart</span>
                                                                                             </h1>
-                                                                                            <div style="color: #839197; margin-bottom: 10px;">Hello <strong
+                                                                                            <div style="margin-bottom: 10px;">Hello <strong
                                                                                                     style="color: #5d3c5b;">${name}</strong>,
                                                                                             </div>
                                                                                             <p>Thanks for signing up for
@@ -249,20 +251,24 @@ router.post("/register", forwardAuthenticated, (req, res) => {
 
 router.get('/confirm', forwardAuthenticated, (req, res) => {
     res.render('accounts/check', {
-        title: "Validation"
+        pageName: "| Confirmation",
+        title: "Validation",
+        haveAuth: true
     })
 })
 
 router.get("/login", forwardAuthenticated, (req, res) => {
     res.render("accounts/login", {
-        title: "Login"
+        pageName: "| Login",
+        title: "Login",
+        haveAuth: true
     })
 })
 
 router.post("/login", forwardAuthenticated,
     passport.authenticate('local',
         {
-            successRedirect: "/home",
+            successRedirect: "/list",
             failureRedirect: "/accounts/login",
             failureFlash: true
         },
@@ -270,7 +276,7 @@ router.post("/login", forwardAuthenticated,
     ),
 )
 
-router.delete("/logout", (req, res) => {
+router.delete("/logout", ensureAuthenticated, (req, res) => {
     req.logOut()
     req.flash("success_msg", "You are logged out")
     res.redirect('/accounts/login')

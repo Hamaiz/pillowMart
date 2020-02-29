@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== "production") {
 //* Require
 const express = require("express");
 const app = express()
+const mongoose = require("mongoose")
 const expressLayouts = require("express-ejs-layouts")
 const flash = require('express-flash')
 const session = require("express-session")
@@ -22,8 +23,9 @@ const aboutRouter = require("./routes/about")
 const listRouter = require("./routes/list")
 const loginRouter = require("./routes/login")
 const confirmationRouter = require('./routes/confirmation')
+const mainRouter = require("./routes/main")
 
-const mongoose = require("mongoose")
+
 
 
 //* MiddleWares
@@ -78,9 +80,7 @@ app.use("/about", aboutRouter)
 app.use("/list", listRouter)
 app.use("/accounts", loginRouter)
 app.use("/confirmation", confirmationRouter)
-app.get("/", (req, res) => {
-    res.send("Startup Page")
-})
+app.use('/', mainRouter)
 
 
 //DataBase
