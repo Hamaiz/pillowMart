@@ -70,26 +70,6 @@ router.post("/register", forwardAuthenticated, (req, res) => {
                                         "success_msg",
                                         "You are now registered, Verify email to login"
                                     )
-                                    //?Nodemailer
-                                    // var auth = {
-                                    // type: 'OAuth2',
-                                    // user: process.env.GMAIL_USER,
-                                    // clientId: process.env.CLIENT_ID,
-                                    // clientSecret: process.env.CLIENT_SECRET,
-                                    // refreshToken: process.env.REFRESH_TOKEN,
-                                    // }
-
-                                    // const transporter = nodemailer.createTransport({
-                                    // service: "gmail",
-                                    // auth: {
-                                    // user: process.env.GMAIL_USER,
-                                    // pass: process.env.GMAIL_PASS
-                                    // },
-                                    // tls: {
-                                    // rejectUnauthorized: false
-                                    // }
-                                    // })
-                                    //?
 
                                     jwt.sign(
                                         {
