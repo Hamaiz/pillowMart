@@ -1,8 +1,8 @@
 const router = require("express").Router()
-const { ensureAuthenticated } = require("../config/auth")
+// const { ensureAuthenticated } = require("../config/auth")
 
 
-router.get("/", ensureAuthenticated, (req, res) => {
+router.get("/", (req, res) => {
     res.render("home/index", {
         pageName: "| Home",
         haveAuth: false

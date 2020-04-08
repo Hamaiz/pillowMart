@@ -23,7 +23,7 @@ const aboutRouter = require("./routes/about")
 const listRouter = require("./routes/list")
 const loginRouter = require("./routes/login")
 const confirmationRouter = require('./routes/confirmation')
-const mainRouter = require("./routes/main")
+const apiItemRouter = require("./routes/api/item")
 
 
 
@@ -75,12 +75,12 @@ app.use((req, res, next) => {
 })
 
 //*Routes
-app.use("/home", indexRouter)
+app.use("/", indexRouter)
 app.use("/about", aboutRouter)
 app.use("/list", listRouter)
 app.use("/accounts", loginRouter)
 app.use("/confirmation", confirmationRouter)
-app.use('/', mainRouter)
+app.use("/api", apiItemRouter)
 
 
 //DataBase
@@ -92,7 +92,6 @@ mongoose.connect(
     }
 )
 const db = mongoose.connection
-// db.on("error", error => console.error(error))
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once("open", _ => console.log("Connected to Mongoose"))
 

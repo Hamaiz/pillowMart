@@ -13,3 +13,14 @@ module.exports = {
         res.redirect("/home")
     }
 }
+
+// exports.resetPassword = (req, res) => {
+//     User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires:{$gt: Date.now()}})
+//     .then((user) => {
+//         if(!user){
+
+//         }
+
+//         user.password
+//     })
+// }

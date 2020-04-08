@@ -14,7 +14,6 @@ function initialize(passport) {
 
                 if (user.confirmed === false) {
                     return done(null, false, { message: "Please Verify your account" })
-                    // console.log(user.confirmed);
 
                 }
 
