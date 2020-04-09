@@ -1,0 +1,77 @@
+<%- include("../partials/breadcrumb") %>
+
+<div class="detail">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="detail_img">
+                    <img src="<%= detail.img_url %> " alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="detail_heading text-center">
+                    <%= detail.title  %>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="detail_description">
+                    <div class="detail_description_d text-center">
+                        <%= detail.description %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="detail_price text-center">
+                    <span class="detail_price_h">Price: <span> <%= detail.price %> </span></span>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="detail_table">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>Dimensions</td>
+                                <td><%= detail.dimensions %> </td>
+                            </tr>
+                            <tr>
+                                <td>Weight</td>
+                                <td><%= detail.weight %> </td>
+                            </tr>
+                            <tr>
+                                <td>Availability</td>
+                                <% if(detail.availability === true) { %>
+                                <th>In Stock</th>
+                                <% } else { %>
+                                <th class="text-danger">Out of Stock</th>
+                                <% } %>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="detail_count">
+                    <div class="detail_count_h text-center">Quantity</div>
+                    <span class="detail_count_item">
+                        <span class="detail_count_item_i">
+                            <i class="fas fa-minus fa-2x"></i>
+                        </span>
+                        <input type="text" class="detail_count_item_input" value="1">
+                        <span class="detail_count_item_i">
+                            <i class="fas fa-plus fa-2x"></i>
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="detail_cart">
+                    <a href="" class="detail_cart_btn">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

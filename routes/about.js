@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
     res.render("about/about", {
         title: "about",
         pageName: "| About",
-        haveAuth: false
+        // haveAuth: false
     })
 })
 

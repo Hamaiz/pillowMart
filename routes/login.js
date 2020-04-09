@@ -16,7 +16,7 @@ router.get("/register", forwardAuthenticated, (req, res) => {
     res.render("accounts/signup", {
         pageName: "| Register",
         title: "sign up",
-        haveAuth: true
+        // haveAuth: true
     })
 })
 router.post("/register", forwardAuthenticated, (req, res) => {
@@ -233,7 +233,7 @@ router.get('/confirm', forwardAuthenticated, (req, res) => {
     res.render('accounts/check', {
         pageName: "| Confirmation",
         title: "Validation",
-        haveAuth: true
+        // haveAuth: true
     })
 })
 

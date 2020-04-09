@@ -5,7 +5,7 @@ const router = require("express").Router()
 router.get("/", (req, res) => {
     res.render("home/index", {
         pageName: "| Home",
-        haveAuth: false
+        // haveAuth: false
     })
 })
 

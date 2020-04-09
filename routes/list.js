@@ -4,6 +4,8 @@ const url = require("url")
 const fetch = require('node-fetch');
 // const { ensureAuthenticated } = require("../config/auth")
 
+const Item = require("../models/Items")
+
 
 router.get("/", async (req, res) => {
     const urlWeb = url.format({
@@ -14,15 +16,11 @@ router.get("/", async (req, res) => {
     try {
         const response = await fetch(fetchUrl)
         const data = await response.json()
-        // console.log(data)
 
         res.render("product/index", {
             pageName: "| List",
             title: "product list",
-            haveAuth: false,
-            data,
-            urlWeb
-
+            data
         })
 
     } catch (error) {
@@ -31,7 +29,19 @@ router.get("/", async (req, res) => {
 })
 
 router.get("/:id", async (req, res) => {
-    console.log(req.params.id)
+    try {
+        const detail = await Item.findById(req.params.id)
+
+        res.render("product/details", {
+            pageName: "| Details",
+            title: "",
+            detail
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.redirect("/list")
+    }
 })
 
 module.exports = router
