@@ -1,17 +1,15 @@
-//Loader
 
-$('body').css({
-    overflow: 'hidden'
-});
-$(window).on("load", function () {
-    $(".loader").fadeOut("slow", function () {
-        $('body').css({
-            overflow: 'auto'
-        });
-    })
+//*===============Loader=================*//
+document.body.style.overflow = "hidden";
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.querySelector(".loader").classList.add("loaded")
+        document.body.style.overflowY = "visible"
+
+    }, 1000);
 })
 
-//* Scrolling
+//*==============Scroll===============*//
 window.onscroll = getScrollPosition;
 
 function getScrollPosition() {
@@ -26,27 +24,10 @@ function getScrollPosition() {
     }
 }
 
-//? Mycode
-// const searchInputBox = document.getElementById("search_input_box")
-// const searchInput = document.getElementById("search_input")
-// const searchOne = document.getElementById("search_1")
-// const closeSearch = document.getElementById("close_search");
 
-// searchInputBox.style.display = "none"
-// searchOne.addEventListener("click", () => {
-//     searchInputBox.style.display = searchInputBox.style.display === "none" ? "" : "none"
-// })
-
-// closeSearch.addEventListener("click", (e) => {
-//     e.preventDefault()
-//     searchInputBox.style.display = "none"
-// })
-
-
-
-// *Hamburger Change
+//*=============Hamburger Change=============//
 var hamburger = document.getElementById("hamburger")
-var barsMobile = document.getElementById("bars-mobile");
+var barsMobile = document.getElementById("bars-mobile")
 
 
 hamburger.addEventListener("click", () => {
@@ -60,114 +41,24 @@ hamburger.addEventListener("click", () => {
 
 })
 
-var review = $(".client_review_slider");
-if (review.length) {
-    review.owlCarousel({
-        items: 1,
+//*==============Carousel================*//
+const swiperContainer = document.querySelector(".swiper-container")
+if (swiperContainer) {
+    var swiper = new Swiper('.swiper-container', {
         loop: true,
-        dots: true,
-        autoplay: true,
-        navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
-        autoplayHoverPause: true,
-        autoplayTimeout: 5000,
-        nav: true,
-        responsive: {
-            0: {
-                nav: false,
-                dots: true
-            },
-            767: {
-                nav: false,
-                dots: true
-            },
-            992: {
-                nav: true
-            },
-            1200: {
-                nav: true
-            },
-            1600: {
-                nav: true
-            }
-        }
-
-    })
+        autoplay: {
+            delay: 3000,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
 }
 
-//video
-$('.popup-youtube').magnificPopup({
-    type: 'iframe',
-    mainClass: 'mfp-fade',
-    removalDelay: 160,
-    preloader: false,
-    fixedContentPos: false
-});
-
-
-$(document).ready(function () {
-    $("#search_input_box").hide();
-    $("#search_1").on("click", function () {
-        $("#search_input_box").slideToggle();
-        $("#search_input").focus();
-    });
-    $("#close_search").on("click", function (e) {
-        e.preventDefault()
-        $("#search_input_box").slideUp(500)
-    })
-
-    $(".select_option_dropdown").hide()
-    $(".select_option_list").click(function () {
-        $(this).parent(".select_option").children(".select_option_dropdown").slideToggle('100')
-        $(this).find(".right").toggleClass("fas fa-caret-down, fas fa-caret-up")
-    })
-
-    $(".wrapper .more").click(function (show) {
-        var showMe = $(this)
-            .closest(".product")
-            .find(".container-prod");
-        $(this)
-            .closest(".wrapper")
-            .find(".container-prod")
-            .not(showMe)
-            .removeClass("information");
-        $(".container-prod").removeClass("social-sharing");
-        showMe
-            .stop(false, true)
-            .toggleClass("information")
-            .removeClass("social-sharing");
-        show.preventDefault();
-    });
-
-    $(".wrapper .share").click(function (share) {
-        var showMe = $(this)
-            .closest(".product")
-            .find(".container-prod");
-        $(this)
-            .closest(".wrapper")
-            .find(".container-prod")
-            .not(showMe)
-            .removeClass("social-sharing");
-        $(".container-prod").removeClass("information");
-        showMe
-            .stop(false, true)
-            .toggleClass("social-sharing")
-            .removeClass("information");
-        share.preventDefault();
-    });
-
-    // $(".wrapper .add").click(function (share) {
-    //     var showMe = $(this)
-    //         .closest(".product")
-    //         .find(".cart");
-    //     showMe.stop(false, true).addClass("added");
-    //     var showMe = $(this)
-    //         .closest(".product")
-    //         .find(".container-prod");
-    //     showMe
-    //         .stop(false, true)
-    //         .removeClass("social-sharing")
-    //         .removeClass("information");
-    //     share.preventDefault();
-    // });
-
-}(jQuery));
+//*===============Option Extension===============*//
+const optionList = document.querySelector(".select_option_list")
+optionList.addEventListener("click", () => {
+    const dropDown = document.querySelector(".select_option_dropdown")
+    dropDown.classList.toggle("extended")
+})

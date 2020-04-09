@@ -49,7 +49,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="/" class="nav-link">Contact</a>
+                                <a href="/contact" class="nav-link">Contact</a>
                             </li>
 
                             <%// if (haveAuth === true) { %>
@@ -65,7 +65,7 @@
                             <% //} else {%>
                             <!-- <div class="nav-item">
                                 <div class="d-lg-none d-block">
-                                    <%- include("./form")  %>
+                                    <%-// include("./form")  %>
                                 </div>
                             </div> -->
                             <% //} %>
@@ -80,30 +80,17 @@
                         <a href="/accounts/login" class="d-lg-block d-none"><i class="fas fa-sign-in-alt"></i>Login</a> -->
                         <% //} else {%>
                         <!-- <div class="d-lg-block d-none">
-                            <%- include("./form")  %>
+                            <%-// include("./form")  %>
                         </div> -->
                         <%// } %>
 
 
-                        <a href="javascript:void(0)" id="search_1" class=" icons_mobile">
-                            <i class="fas fa-search"></i>
-                        </a>
                         <a href="/" class="icons_mobile">
                             <i class="fas fa-shopping-cart"></i>
                         </a>
                     </div>
                 </nav>
             </div>
-        </div>
-    </div>
-    <div class="search_input" id="search_input_box">
-        <div class="container">
-            <form class="d-flex justify-content-between search-inner">
-                <input type="text" class="form-control" id="search_input" placeholder="Search Here">
-                <button type="submit" class="btn">
-                    <span class="close_icon" id="close_search" title="Close Search">&times;</span>
-                </button>
-            </form>
         </div>
     </div>
 </header>

@@ -23,6 +23,7 @@ const aboutRouter = require("./routes/about")
 const listRouter = require("./routes/list")
 const loginRouter = require("./routes/login")
 const confirmationRouter = require('./routes/confirmation')
+const contactRouter = require("./routes/contact")
 const apiItemRouter = require("./routes/api/item")
 
 
@@ -77,6 +78,7 @@ app.use((req, res, next) => {
 //*Routes
 app.use("/", indexRouter)
 app.use("/about", aboutRouter)
+app.use("/contact", contactRouter)
 app.use("/list", listRouter)
 app.use("/accounts", loginRouter)
 app.use("/confirmation", confirmationRouter)
