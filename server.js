@@ -49,7 +49,7 @@ app.use(express.static("public"))
 nm_dependencies.forEach(dep => {
     app.use(`/${dep}`, express.static(path.resolve(`node_modules/${dep}/`)))
 })
-app.use(sslRedirect())
+// app.use(sslRedirect())
 app.use(fileUpload())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
