@@ -49,7 +49,7 @@ app.use(express.static("public"))
 nm_dependencies.forEach(dep => {
     app.use(`/${dep}`, express.static(path.resolve(`node_modules/${dep}/`)))
 })
-// app.use(sslRedirect())
+app.use(sslRedirect())
 app.use(fileUpload())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -131,7 +131,4 @@ db.once("open", _ => console.log("Connected to Mongoose"))
 
 
 //*=============Port==============*//
-// app.listen(process.env.PORT || 3000, () => console.log("Server has started..."))
-app.listen(3000, '0.0.0.0', function () {
-    console.log("Server has started");
-});
+app.listen(process.env.PORT || 3000, () => console.log("Server has started..."))
