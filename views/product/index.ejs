@@ -19,10 +19,10 @@
                                 Sort By <i class="right fas fa-caret-down"></i>
                             </div>
                             <div class="select_option_dropdown">
-                                <p><a href="#">Category 1</a></p>
-                                <p><a href="#">Category 2</a></p>
-                                <p><a href="#">Category 3</a></p>
-                                <p><a href="#">Category 4</a></p>
+                                <p><a href="?items=date">Recently added</a></p>
+                                <p><a href="?items=-date">Oldly added</a></p>
+                                <p><a href="?items=price">Price Low - High</a></p>
+                                <p><a href="?items=-price">Price High - Low</a></p>
                             </div>
                         </div>
                     </div>
@@ -31,12 +31,12 @@
             <div class="col-md-8">
                 <div class="product_list">
                     <div class="row">
-                        <% data.forEach(element => { %>
+                        <% p.forEach(element => { %>
                         <div class="col-lg-6 col-sm-6">
                             <div class="single_product_item">
                                 <img src="<%= element.img_url %>" alt="" class="img-fluid">
-                                <h3><a href="/list/<%= element._id %> "><%= element.title %> </a></h3>
-                                <p>From <%= element.price %> </p>
+                                <h3><a href="/list/<%= element.slug %>"><%= element.title %> </a></h3>
+                                <p>From $<%= element.price %> </p>
                             </div>
                         </div>
                         <% }) %>

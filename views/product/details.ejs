@@ -3,9 +3,10 @@
 <div class="detail">
     <div class="container">
         <div class="row justify-content-center">
+
             <div class="col-lg-8">
                 <div class="detail_img">
-                    <img src="<%= detail.img_url %> " alt="">
+                    <img src="<%= p.img_url %>" alt="<%= p.slug %>">
                 </div>
             </div>
         </div>
@@ -14,19 +15,19 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="detail_heading text-center">
-                    <%= detail.title  %>
+                    <%= p.title  %>
                 </div>
             </div>
             <div class="col-lg-8">
                 <div class="detail_description">
                     <div class="detail_description_d text-center">
-                        <%= detail.description %>
+                        <%= p.description %>
                     </div>
                 </div>
             </div>
             <div class="col-lg-8">
                 <div class="detail_price text-center">
-                    <span class="detail_price_h">Price: <span> <%= detail.price %> </span></span>
+                    <span class="detail_price_h">Price: <span> $<%= p.price %> </span></span>
                 </div>
             </div>
             <div class="col-lg-8">
@@ -35,15 +36,15 @@
                         <tbody>
                             <tr>
                                 <td>Dimensions</td>
-                                <td><%= detail.dimensions %> </td>
+                                <td><%= p.dimensions %> (cm)</td>
                             </tr>
                             <tr>
                                 <td>Weight</td>
-                                <td><%= detail.weight %> </td>
+                                <td><%= p.weight %>kg</td>
                             </tr>
                             <tr>
                                 <td>Availability</td>
-                                <% if(detail.availability === true) { %>
+                                <% if(p.availability === "available") { %>
                                 <th>In Stock</th>
                                 <% } else { %>
                                 <th class="text-danger">Out of Stock</th>
@@ -57,11 +58,11 @@
                 <div class="detail_count">
                     <div class="detail_count_h text-center">Quantity</div>
                     <span class="detail_count_item">
-                        <span class="detail_count_item_i">
+                        <span class="detail_count_item_i" id="removeOne">
                             <i class="fas fa-minus fa-2x"></i>
                         </span>
-                        <input type="text" class="detail_count_item_input" value="1">
-                        <span class="detail_count_item_i">
+                        <input type="text" class="detail_count_item_input" value="1" readonly>
+                        <span class="detail_count_item_i" id="addOne">
                             <i class="fas fa-plus fa-2x"></i>
                         </span>
                     </span>
@@ -69,7 +70,11 @@
             </div>
             <div class="col-lg-8">
                 <div class="detail_cart">
-                    <a href="" class="detail_cart_btn">Add to Cart</a>
+                    <% if (p.availability === "available") { %>
+                    <a href="/cart/add/<%= p._id  %>" class="detail_cart_btn">Add to Cart</a>
+                    <% } else {%>
+                    <a href="/" class="detail_cart_btn btn disabled">Out of Stock</a>
+                    <% } %>
                 </div>
             </div>
         </div>

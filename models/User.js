@@ -14,6 +14,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    admin: {
+        type: Number
+    },
     confirmed: {
         type: Boolean,
         default: false

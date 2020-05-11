@@ -1,0 +1,187 @@
+<%- include("./adminHeader") %>
+<br>
+
+<h2 class="text-center pt-5">Edit page</h2>
+
+<div class="container-fluid pb-5 pt-5">
+    <div class="row justify-content-center pb-5">
+        <div class="col-lg-8 pb-5">
+
+            <form action="/admin/pages/product-gallery/<%= anotherId %>" method="post" enctype="multipart/form-data"
+                class="dropzone" id="dropzoneForm">
+                <div class="fallback">
+                    <input type="file" name="file" multiple>
+                    <input type="submit" value="Upload">
+                </div>
+            </form>
+            <br />
+            <ul class="gallery container-fluid">
+                <% if (galleryImages.length === 0) { %>
+                <h5 class="text-center text-danger">Please add images before writing something</h5>
+                <% }else { %>
+                <% galleryImages.forEach(element => { %>
+                <li>
+                    <img src="<%= element %>" alt="<% slug %>" class="w-25 imgCopy">
+                    <!-- <input type="text" value="<%# element %>" class="copyText" readonly> -->
+                    <a href="<%= element  %>" class="copyText btn text-primary">Copy Link</a>
+
+                    <% let index = element.lastIndexOf("/") + 1 %>
+                    <% const fileName = element.substr(index) %>
+                    <% const address = element.replace(/https:\/\/dl.dropboxusercontent.com\/|[^\/]+$/g, "") %>
+
+                    <a href="/admin/pages/delete-image/<%= fileName%>?id=<%= anotherId %>&link=<%= address %>"
+                        class="eliminate pressDisable btn text-danger">Delete</a>
+                </li>
+                <% }) %>
+                <% } %>
+            </ul>
+
+            <hr>
+        </div>
+        <div class="col-lg-8">
+            <form action="/admin/pages/edit-page/<%= id %>" method="post" enctype="multipart/form-data"
+                class="formSubmit">
+                <div class="form-group">
+                    <label for="">Title</label>
+                    <input type="text" name="title" value="<%=title %>" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" name="slug" value="<%= slug %>" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for=""><b>Current Image</b></label>
+                    <br>
+                    <% if (img_url === "") { %>
+                    <p>No Image was Uploaded</p>
+                    <% } else { %>
+                    <img src="<%= img_url %>" alt="<%= slug %>" class="rounded  w-50">
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="b">
+                        <b>Image</b>
+                    </label>
+                    <input type="file" name="image" class="form-control-file" id="img">
+                    <br> <br>
+                    <img src="#" alt="" id="imgPreview" class="w-50 rounded">
+                </div>
+
+                <div class="form-group">
+                    <label for=""><b>Content</b></label>
+                    <!-- <textarea name="content" class="editor" id="editor" cols="30" rows="10"><%# content %></textarea> -->
+                    <div class="editorContent">
+                        <div id="editorjs"></div>
+                    </div>
+                </div>
+
+                <br>
+                <input type="hidden" value="<%= content %>" name="content">
+                <input type="hidden" name="pimage" value="<%= img_url %>">
+                <input type="hidden" name="another" value="<%= anotherId %>">
+                <input type="hidden" name="galleryImages" value="<%= JSON.stringify(galleryImages) %>">
+                <button type="submit" class="btn btn-primary disabling">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/@editorjs/editorjs/dist/editor.js"></script>
+<script src="/@editorjs/header/dist/bundle.js"></script>
+<script src="/@editorjs/simple-image/dist/bundle.js"></script>
+<script src="/@editorjs/embed/dist/bundle.js"></script>
+<script src="/@editorjs/quote/dist/bundle.js"></script>
+<script src="/@editorjs/list/dist/bundle.js"></script>
+<script src="/@editorjs/marker/dist/bundle.js"></script>
+
+<script>
+    //EditorJs
+    const inputData = document.querySelector('input[name=content]')
+    const editorjsData = {
+        time: 1552744582955,
+        blocks: [
+            {
+                type: "header",
+                data: {
+                    "text": "Write Your Blog by removing this line.",
+                    "level": 2
+                }
+            }
+        ],
+        version: "2.11.10"
+    }
+
+
+    const editor = new EditorJS({
+        holderId: 'editorjs',
+        tools: {
+            header: {
+                class: Header,
+                shortcut: 'CMD+SHIFT+H',
+                defaultLevel: 3,
+                inlineToolbar: false
+            },
+            image: SimpleImage,
+            embed: {
+                class: Embed,
+                inlineToolbar: false
+            },
+            quote: {
+                class: Quote,
+                inlineToolbar: true,
+                shortcut: 'CMD+SHIFT+O',
+                config: {
+                    quotePlaceholder: 'Enter a quote',
+                    captionPlaceholder: 'Quote\'s author',
+                },
+            },
+            list: {
+                class: List,
+                inlineToolbar: [
+                    'link',
+                    'bold'
+                ]
+            },
+            Marker: {
+                class: Marker,
+                shortcut: 'CMD+SHIFT+M',
+            }
+        },
+        data: (inputData.value === "") ? editorjsData : JSON.parse(inputData.value)
+    })
+
+
+    //Imgae Preview
+    const readURL = input => {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader()
+
+            reader.addEventListener("load", e => {
+                const imgPreview = document.getElementById("imgPreview")
+                imgPreview.src = e.target.result
+
+            })
+            reader.readAsDataURL(input.files[0])
+        }
+    }
+    const image = document.getElementById("img")
+    image.addEventListener("change", function () {
+        readURL(this)
+    })
+
+
+    //Disable
+    document.querySelector(".formSubmit").addEventListener("submit", function () {
+        editor
+            .save()
+            .then(data => {
+                let inputValue = document.querySelector('input[name=content]')
+                inputValue.value = JSON.stringify(data)
+                console.log(inputValue.data);
+            })
+        document.querySelector(".disabling").disabled = true
+    })
+</script>

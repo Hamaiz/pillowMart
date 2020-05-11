@@ -1,0 +1,56 @@
+<%- include("./adminHeader") %>
+<br>
+
+<h2 class="text-center pt-5">Pages</h2>
+<br><br>
+<div class="container pb-5">
+    <div class="row justify-content-center pb-5">
+        <div class="col-lg-8 d-flex justify-content-center">
+            <a href="/admin/pages/add-page" class="btn btn-primary">Add Page</a>
+        </div>
+        <div class="col-lg-10 pt-5">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody class="sortable">
+                    <% pages.forEach(e => { %>
+                    <tr id="<%= e._id %>">
+                        <td><%= e.title %></td>
+                        <td><a href="/admin/pages/edit-page/<%= e._id %>" class="btn text-primary">Edit</a></td>
+                        <td><a class="pressDisable eliminate btn text-primary"
+                                href="/admin/pages/delete-page/<%= e.anotherId %>">Delete</a></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="/html5sortable/dist/html5sortable.min.js"></script>
+<script>
+    sortable('.sortable', {
+        itemSerializer: (serializedItem) => {
+            return {
+                id: serializedItem.node.id
+            }
+        }
+    });
+    sortable('.sortable')[0].addEventListener("sortstop", (e) => {
+        const serializedArray = sortable('.sortable', 'serialize')
+        const ids = serializedArray[0].items
+        fetch('/admin/pages/reorder-page', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ ids: ids })
+        })
+            .then(res => console.log(res))
+    })
+</script>

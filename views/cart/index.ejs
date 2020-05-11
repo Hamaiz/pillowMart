@@ -1,0 +1,107 @@
+<%- include("../partials/breadcrumb")  %>
+
+<div class="cartItem">
+    <div class="container-fluid">
+        <div class="row justify-content-between">
+            <div class="col-lg-8">
+                <div class="cartItem_product">
+                    <% if(typeof cart !== "undefined"){ %>
+                    <div class="text-right">
+                        <a href="/cart/clear" class="cartItem_product_all">Clear All</a>
+                    </div>
+                    <% } %>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Subtotal</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(typeof cart !== "undefined"){ %>
+                                <% let total = 0 %>
+                                <% cart.forEach(element => { %>
+                                <% let sub = element.qty * element.price %>
+                                <% total += +sub %>
+                                <tr>
+                                    <td>
+                                        <div class="media">
+                                            <div class="d-flex">
+                                                <img src="<%= element.img_url  %> " alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <p><%= element.title  %> </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5>$<%= element.price  %> </h5>
+                                    </td>
+                                    <td>
+                                        <!-- <div class="num-block">
+                                            <div class="num-in">
+                                                <span class="minus"></span>
+                                                <input type="text" class="in-num" value="<%=// element.qty %>"
+                                                    readonly="">
+                                                <span class="plus"></span>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="cartItem_qty">
+                                            <input type="text" name="" class="inputTag" value="<%= element.qty %> "
+                                                readonly />
+                                            <div class="cartItem_qty_a">
+                                                <a href="/cart/update/<%= element.id %>?action=remove">
+                                                    <i class="fa fa-minus"></i>
+                                                </a>
+                                                <a href="/cart/update/<%= element.id %>?action=add">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h4>$<%= element.price * element.qty%></h4>
+                                    </td>
+                                    <td class="cartItem_delete">
+                                        <a href="/cart/update/<%= element.id %>?action=clear">
+                                            &times;
+                                        </a>
+                                    </td>
+
+                                </tr>
+
+                                <% }) %>
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="text-right cartItem_total">
+                                            <span>Total: </span> $<%= total %>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <%  } else{%>
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        You have no items in cart
+                                    </td>
+                                </tr>
+                                <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="cartItem_side">
+                    <div class="">this</div>
+                    <button class="btn_1">This</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

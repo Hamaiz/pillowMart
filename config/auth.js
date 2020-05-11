@@ -10,7 +10,20 @@ module.exports = {
         if (!req.isAuthenticated()) {
             return next()
         }
-        res.redirect("/home")
+        res.redirect("/")
+    },
+    isHolder: function (req, res, next) {
+        if (req.isAuthenticated() && res.locals.user.admin === 1) {
+            next()
+        } else {
+            res.status(400).send('Bad Request' + `
+                <script>
+                    setTimeout(() => {
+                        window.location = "/"
+                    }, 2000);
+                </script>
+            `)
+        }
     }
 }
 

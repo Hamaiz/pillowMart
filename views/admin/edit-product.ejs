@@ -1,0 +1,136 @@
+<%- include("./adminHeader") %>
+<!-- <link rel="stylesheet" href="/dropzone/dist/min/dropzone.min.css"> -->
+<br>
+
+<h2 class="text-center pt-5">Edit product</h2>
+
+<div class="container-fluid pb-5 pt-5">
+    <div class="row justify-content-center pb-5">
+        <div class="col-lg-8">
+            <form action="/admin/products/edit-product/<%= id %>" method="post" enctype="multipart/form-data"
+                class="formSubmit">
+                <div class="form-group">
+                    <label for=""><b>Title</b></label>
+                    <input type="text" name="title" value="<%= title %>" class="form-control">
+                </div><br>
+
+                <div class="form-group">
+                    <label for=""><b>Price</b> ($)</label>
+                    <input type="text" name="price" value="<%= price %>" class="form-control">
+                </div><br>
+
+
+                <div class="form-group">
+                    <label for=""><b>Dimension</b> (cm)</label>
+                    <input type="text" name="dimensions" value="<%= dimensions %>" class="form-control"
+                        placeholder="e.g. 30 x 30 x 30">
+                </div><br>
+
+                <div class="form-group">
+                    <label for=""><b>Weight</b> (kg)</label>
+                    <input type="text" name="weight" value="<%= weight %>" class="form-control" placeholder="e.g. 30">
+                </div><br>
+
+                <div class="form-group">
+                    <label for=""><b>Availability</b></label><br>
+                    <% if (availability === "available") { %>
+                    <input type="radio" id="available" name="availability" value="available" checked="checked">
+                    <label for="available">Available</label><br>
+                    <input type="radio" id="notavailable" name="availability" value="notavailable">
+                    <label for="notavailable">Not available</label><br>
+                    <% }else{ %>
+                    <input type="radio" id="available" name="availability" value="available">
+                    <label for="available">Available</label><br>
+                    <input type="radio" id="notavailable" name="availability" value="notavailable" checked="checked">
+                    <label for="notavailable">Not available</label><br>
+                    <% } %>
+                </div><br>
+
+                <div class="form-group">
+                    <label for=""><b>Description</b></label>
+                    <textarea class="form-control" id="editor" name="desc" cols="30" rows="10"><%= desc %></textarea>
+                </div><br>
+
+                <div class="form-group">
+                    <label for=""><b>Current Image</b></label>
+                    <br>
+                    <% if (img_url === "") { %>
+                    <p>No Image was Uploaded</p>
+                    <% } else { %>
+                    <img src="<%= img_url %>" alt="<%= slug %>" class="rounded  ">
+                    <% } %>
+                </div><br>
+
+                <div class="form-group">
+                    <label for="" class="b">
+                        <b>Image</b>
+                    </label>
+                    <br>
+                    <input type="file" name="image" class="form-control-file" id="img">
+                    <br> <br>
+                    <img src="#" alt="" id="imgPreview" class="w-50 rounded">
+                </div><br>
+
+                <input type="hidden" name="pimage" value="<%= img_url %>">
+                <input type="hidden" name="anotherId" value="<%= anotherId %>">
+                <button type="submit" class="btn btn-primary disabling">Submit</button>
+            </form>
+
+            <hr>
+            <h3>Gallery</h3>
+            <br>
+            <ul class="gallery container-fluid">
+                <% if (galleryImages.length === 0) { %>
+                <p class="text-center">No images :(</p>
+                <% }else { %>
+                <% galleryImages.forEach(element => { %>
+                <li>
+                    <img src="<%= element %>" alt="<% slug %>" class="w-25">
+
+                    <% let index = element.lastIndexOf("/") + 1 %>
+                    <% const fileName = element.substr(index) %>
+                    <% const address = element.replace(/https:\/\/dl.dropboxusercontent.com\/|[^\/]+$/g, "") %>
+
+                    <a href="/admin/products/delete-image/<%= fileName%>?id=<%= anotherId %>&link=<%= address %>"
+                        class="eliminate pressDisable btn text-primary">Delete</a>
+                </li>
+                <% }) %>
+                <% } %>
+            </ul>
+            <br>
+
+            <form action="/admin/products/product-gallery/<%= anotherId %>" method="post" enctype="multipart/form-data"
+                class="dropzone" id="dropzoneForm">
+                <div class="fallback">
+                    <input type="file" name="file" multiple>
+                    <input type="submit" value="Upload">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    //Imgae Preview
+    const readURL = input => {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader()
+
+            reader.addEventListener("load", e => {
+                const imgPreview = document.getElementById("imgPreview")
+                imgPreview.src = e.target.result
+
+            })
+            reader.readAsDataURL(input.files[0])
+        }
+    }
+    const image = document.getElementById("img")
+    image.addEventListener("change", function () {
+        readURL(this)
+    })
+
+    //DISABLING
+    document.querySelector(".formSubmit").addEventListener("submit", function () {
+        document.querySelector(".disabling").disabled = true
+    })
+</script>

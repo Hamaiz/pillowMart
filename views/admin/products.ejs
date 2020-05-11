@@ -1,0 +1,41 @@
+<%- include("./adminHeader") %>
+<br>
+
+<h2 class="text-center pt-5">Products</h2>
+<br><br>
+<div class="container pb-5">
+    <div class="row justify-content-center pb-5">
+        <div class="col-lg-8 d-flex justify-content-center">
+            <a href="/admin/products/add-product" class="btn btn-primary">Add Product</a>
+        </div>
+        <div class="col-lg-10 pt-5">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="text-center">
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Image</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody class=""">
+                    <% product.forEach(e => { %>
+                    <tr id=" <%= e._id %>">
+                    <td><%= e.title %></td>
+                    <td>$<%= e.price %></td>
+                    <td class="text-center">
+                        <img src="<%= e.img_url %>" alt="<%= e.slug %>" class="rounded  w-25">
+                    </td>
+                    <td><a href="/admin/products/edit-product/<%= e._id %>" class="btn text-primary">Edit</a></td>
+                    <td><a class="eliminate btn text-primary pressDisable"
+                            href="/admin/products/delete-product/<%= e.anotherId %>">Delete</a>
+                    </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>

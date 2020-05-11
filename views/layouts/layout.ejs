@@ -3,14 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <% if (!showHeader) { %>
+    <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW, NOIMAGEINDEX, NOARCHIVE">
+    <% } %>
+    <meta name=" viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PillowMart is a mart dedicated for selling comfy pillows">
+    <meta name="keywords" content="Pillows, Pillowmart, mart, bed">
     <title>Pillow Mart <%= pageName %> </title>
     <link rel="icon" href="/favicon.png">
 
     <!--* CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/bootstrap-css-only/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -25,16 +29,17 @@
         </div>
     </div>
 
+    <% if(showHeader){ %>
     <%- include("../partials/header") %>
     <br>
+    <%- include("../partials/message") %>
+    <% } %>
     <%- body %>
     <%- include("../partials/footer") %>
 
 
-    <!--* Script  -->
-    <!-- <script src="/js/bootstrap.min.js"></script> -->
-    <!-- <script src="/js/jquery.validate.min.js"></script> -->
-    <script src="/js/swiper.min.js"></script>
+    <!--* Script *-->
+    <script src="/bootstrap.native/dist/bootstrap-native-v4.min.js"></script>
     <script src="/js/main.js"></script>
 </body>
 

@@ -1,0 +1,19 @@
+<div class="container pt-5 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="single_blog">
+                <div class="single_blog_heading text-center">
+                    <div><%= title  %></div>
+                </div>
+                <div class="single_blog_img text-center">
+                    <img src="<%= img_url %>" alt="<%= slug %>">
+                </div>
+                <div class="single_blog_wb w-100">
+                    <% content.forEach(element => { %>
+                    <%- element  %>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

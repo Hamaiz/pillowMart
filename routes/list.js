@@ -1,47 +1,33 @@
 const express = require("express");
 const router = express.Router()
-const url = require("url")
-const fetch = require('node-fetch');
 // const { ensureAuthenticated } = require("../config/auth")
+const Product = require("../models/Product")
 
-const Item = require("../models/Items")
 
-
-router.get("/", async (req, res) => {
-    const urlWeb = url.format({
-        protocol: req.protocol,
-        host: req.get("host")
-    })
-    const fetchUrl = urlWeb + "/api/item"
-    try {
-        const response = await fetch(fetchUrl)
-        const data = await response.json()
-
+router.get("/", (req, res) => {
+    Product.find({}).sort(req.query.items).exec((err, p) => {
         res.render("product/index", {
             pageName: "| List",
             title: "product list",
-            data
+            showHeader: true,
+            pageName: "| admin",
+            p
         })
-
-    } catch (error) {
-        console.log(error);
-    }
+    })
 })
 
-router.get("/:id", async (req, res) => {
-    try {
-        const detail = await Item.findById(req.params.id)
+router.get("/:slug", (req, res) => {
+    const { slug } = req.params
 
+    Product.findOne({ slug: slug }, (err, p) => {
         res.render("product/details", {
             pageName: "| Details",
             title: "",
-            detail
+            showHeader: true,
+            p
         })
+    })
 
-    } catch (error) {
-        console.log(error)
-        res.redirect("/list")
-    }
 })
 
 module.exports = router

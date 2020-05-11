@@ -9,6 +9,7 @@ router.get("/", (req, res) => {
         title: "about",
         pageName: "| About",
         // haveAuth: false
+        showHeader: true,
     })
 })
 

@@ -1,0 +1,32 @@
+<div class="blog_area">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class=" col-lg-8">
+                <div class="blog_area_heading text-center">
+                    <div>Our Latest Blogs</div>
+                </div>
+                <% let months = ["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]; %>
+                <% pages.forEach(element => { %>
+
+                <article class="blog_item">
+                    <div class="blog_item_img">
+                        <img class="card-img rounded-0" src="<%= element.img_url %>" alt="">
+                        <div class="blog_item_date">
+                            <h3><%= element.date.getDate() %> </h3>
+                            <p><%= months[element.date.getMonth()] %> </p>
+                        </div>
+                    </div>
+
+                    <div class="blog_details">
+                        <a class="d-inline-block" href="/blog/<%= element.slug %>">
+                            <h2><%= element.title %></h2>
+                        </a>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam, ipsa. </p>
+                    </div>
+                </article>
+                <% }) %>
+
+            </div>
+        </div>
+    </div>
+</div>
