@@ -15,17 +15,17 @@
                         <form action="/accounts/register" class="row contact_form" method="POST" id="signUpForm">
 
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" name="name" placeholder="Username" class="form-control"
+                                <input type="text" name="name" placeholder="Username" class="form-control" required
                                     value=<%= typeof name != "undefined" ? name: "" %>>
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <input type="email" name="email" placeholder="Email" class="form-control"
+                                <input type="email" name="email" placeholder="Email" class="form-control" required
                                     value=<%= typeof email != "undefined" ? email: "" %>>
                             </div>
 
                             <div class="col-md-12 form-group p_star">
                                 <input type="password" name="password" placeholder="Password" class="form-control"
-                                    value="<%= typeof password != 'undefined' ? password : '' %>">
+                                    required value="<%= typeof password != 'undefined' ? password : '' %>">
 
                             </div>
 

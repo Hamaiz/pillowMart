@@ -7,9 +7,11 @@
                 <div class="product_sidebar">
 
                     <div class="single_sidebar">
-                        <form action="">
-                            <input type="text" name="search" placeholder="Search Keyword">
-                            <i class="fas fa-search"></i>
+                        <form action="/list" method="GET">
+                            <input type="text" name="search" placeholder="Search Keyword" value="<%=searchOptions  %>">
+                            <button type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
                         </form>
                     </div>
 

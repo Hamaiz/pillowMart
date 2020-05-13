@@ -1,4 +1,5 @@
 const LocalStrategy = require("passport-local").Strategy;
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require("bcryptjs")
 
 const User = require("../models/User")
@@ -14,7 +15,6 @@ function initialize(passport) {
 
                 if (user.confirmed === false) {
                     return done(null, false, { message: "Please Verify your account" })
-
                 }
 
                 bcrypt.compare(password, user.password, (err, isMatch) => {
@@ -35,6 +35,54 @@ function initialize(passport) {
             done(err, user)
         })
     })
+
+    passport.use(new GoogleStrategy({
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: "https://pillowmart.herokuapp.com/accounts/google/callback"
+    },
+        async (accessToken, refreshToken, profile, done) => {
+            console.log(profile);
+            process.nextTick(function () {
+                User.findOne({
+                    $or: [
+                        { "google.id": profile.id },
+                        { 'email': profile._json.email }
+                    ]
+                }, (err, user) => {
+                    if (err) return done(err)
+
+                    //If email is Registedred
+                    if (user) {
+                        if (user.google.id === undefined) {
+                            user.google.id = profile.id
+                            user.google.token = accessToken
+                            user.google.email = profile._json.email
+                            user.google.name = profile._json.name
+                            user.save()
+                        }
+                        return done(null, user)
+                    } else {
+                        //If Email is not registered 
+
+                        let newUser = new User()
+                        newUser.name = profile._json.name
+                        newUser.email = profile._json.email
+                        newUser.google.id = profile.id
+                        newUser.google.token = accessToken
+                        newUser.google.email = profile._json.email
+                        newUser.google.name = profile._json.name
+
+                        newUser.save(err => {
+                            if (err) throw err
+                        })
+
+                        return done(null, newUser)
+                    }
+                })
+            })
+        }
+    ));
 }
 
 module.exports = initialize

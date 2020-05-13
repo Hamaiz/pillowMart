@@ -7,18 +7,29 @@
                 <div class="login_part_form text-center">
                     <div class="login_part_form_inner w-100">
                         <h3>
-                            Welcome Back !<br>
+                            Welcome!<br>
                             Please Sign in now
                         </h3>
-                        <%-// include("../partials/message") %>
-                        <form action="/accounts/login" class="row contact_form" method="POST">
-
+                        <div class="google_btn">
+                            <a href="/accounts/google">
+                                <i class="fab fa-google fa-2x" aria-hidden="true"></i>
+                                <span>Sign in with Google</span>
+                            </a>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="">or</div>
+                        <hr>
+                        <br>
+                        <br>
+                        <form action="/accounts/login" class="row contact_for" method="POST">
                             <div class="col-md-12 form-group p_star">
-                                <input type="email" name="email" placeholder="Email" class="form-control">
+                                <input type="email" name="email" placeholder="Email" class="form-control" required>
                             </div>
 
                             <div class="col-md-12 form-group p_star">
-                                <input type="password" name="password" placeholder="Password" class="form-control">
+                                <input type="password" name="password" placeholder="Password" class="form-control"
+                                    required>
                             </div>
 
                             <div class="col-md-12 form-group">
@@ -29,7 +40,7 @@
                                 <button type="submit" class="btn_3">
                                     LOG IN
                                 </button>
-                                <a href="" class="lost_pass">Forget Password?</a>
+                                <a href="/accounts/recover" class="lost_pass">Forget Password?</a>
                                 <div class="register">
                                     Don't have an account?
                                     <a href="/accounts/register" class="sign_up">Register</a>

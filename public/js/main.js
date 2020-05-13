@@ -1,7 +1,5 @@
-
+console.log = function () { }
 //*===============Loader=================*//
-// document.querySelector(".loader").classList.add("loaded")
-
 document.body.style.overflow = "hidden";
 window.addEventListener("load", () => {
     setTimeout(() => {
@@ -9,6 +7,7 @@ window.addEventListener("load", () => {
         document.body.style.overflowY = "visible"
     }, 100);
 })
+
 
 
 //*==============Scroll===============*//

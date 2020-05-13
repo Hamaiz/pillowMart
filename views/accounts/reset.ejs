@@ -1,0 +1,33 @@
+<%- include("../partials/breadcrumb") %>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="recover">
+                <div class="recover_desc text-center">
+                    Hey! please enter your new password
+                </div>
+                <hr>
+                <form action="/accounts/reset/<%= token %>" method="post">
+                    <div class="col-md-12 w-100 recover_container">
+                        <label for="">New Password</label>
+                        <input type="password" name="password" placeholder="Email" class="form-control recover_input"
+                            required>
+                    </div>
+                    <br>
+                    <div class="col-md-12 w-100 recover_container">
+                        <label for="">Confirm Password</label>
+                        <input type="password" name="confirmPassword" placeholder="Email"
+                            class="form-control recover_input" required>
+                    </div>
+
+                    <input type="hidden" name="token" value="<%= token %>">
+                    <div class="text-center">
+                        <button type="submit" class="btn_1">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -25,7 +25,6 @@ const initializePassport = require("./config/passport")
 initializePassport(passport)
 
 
-
 //*===========Routes Require================*//
 const indexRouter = require("./routes/home")
 const aboutRouter = require("./routes/about")
@@ -65,8 +64,9 @@ app.use(session({
     store: new MongoStore({
         url: process.env.DATABASE_URL
     }),
-    resave: false,
+    resave: true,
     saveUninitialized: false,
+    // cookie: { secure: true }
 }))
 app.use(function (req, res, next) {
     if (req.method == "POST" && req.url == '/accounts/login') {
@@ -108,7 +108,7 @@ app.use("/about", aboutRouter)
 app.use("/contact", contactRouter)
 app.use("/list", listRouter)
 app.use("/accounts", loginRouter)
-app.use("/admin", adminRouter)
+app.use(`/cf5480873fae9cf6c5c9`, adminRouter)
 app.use("/confirmation", confirmationRouter)
 app.use("/cart", cartRouter)
 app.use("/blog", blogRouter)
@@ -121,7 +121,8 @@ mongoose.connect(
     {
         useUnifiedTopology: true,
         useNewUrlParser: true,
-        useFindAndModify: false
+        useFindAndModify: false,
+        useCreateIndex: true,
     }
 )
 const db = mongoose.connection

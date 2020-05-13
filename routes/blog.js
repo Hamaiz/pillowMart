@@ -3,6 +3,8 @@ const Page = require("../models/Pages")
 
 //Blogs
 router.get("/", (req, res) => {
+    console.log(req.session);
+
     Page.find({}).sort({ sorting: 1 }).exec((err, pages) => {
         res.render("blog/index", {
             pageName: "| Blogs",
@@ -17,8 +19,14 @@ router.get("/", (req, res) => {
 router.get('/:slug', (req, res) => {
     const { slug } = req.params
 
+
     Page.findOne({ slug: slug }, (err, page) => {
         let { title, img_url, slug, content } = page
+
+        const another = JSON.parse(content).blocks
+        another.forEach(item => {
+            console.log(item)
+        })
 
         let html = []
         for (let block of JSON.parse(content).blocks) {
@@ -43,6 +51,9 @@ router.get('/:slug', (req, res) => {
                     str += `</${(block.data.style === 'ordered') ? 'ol' : 'ul'}>`
                     html.push(str)
                     break
+                case 'embed':
+                    if (block.data.service === "youtube")
+                        html.push(`<div class="blog_frame"><iframe src='${block.data.embed}' allowfullscreen></iframe></div>`);
             }
         }
 

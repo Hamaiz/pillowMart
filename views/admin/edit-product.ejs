@@ -7,8 +7,8 @@
 <div class="container-fluid pb-5 pt-5">
     <div class="row justify-content-center pb-5">
         <div class="col-lg-8">
-            <form action="/admin/products/edit-product/<%= id %>" method="post" enctype="multipart/form-data"
-                class="formSubmit">
+            <form action="/cf5480873fae9cf6c5c9/products/edit-product/<%= id %>" method="post"
+                enctype="multipart/form-data" class="formSubmit">
                 <div class="form-group">
                     <label for=""><b>Title</b></label>
                     <input type="text" name="title" value="<%= title %>" class="form-control">
@@ -91,7 +91,7 @@
                     <% const fileName = element.substr(index) %>
                     <% const address = element.replace(/https:\/\/dl.dropboxusercontent.com\/|[^\/]+$/g, "") %>
 
-                    <a href="/admin/products/delete-image/<%= fileName%>?id=<%= anotherId %>&link=<%= address %>"
+                    <a href="/cf5480873fae9cf6c5c9/products/delete-image/<%= fileName%>?id=<%= anotherId %>&link=<%= address %>"
                         class="eliminate pressDisable btn text-primary">Delete</a>
                 </li>
                 <% }) %>
@@ -99,8 +99,8 @@
             </ul>
             <br>
 
-            <form action="/admin/products/product-gallery/<%= anotherId %>" method="post" enctype="multipart/form-data"
-                class="dropzone" id="dropzoneForm">
+            <form action="/cf5480873fae9cf6c5c9/products/product-gallery/<%= anotherId %>" method="post"
+                enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
                 <div class="fallback">
                     <input type="file" name="file" multiple>
                     <input type="submit" value="Upload">

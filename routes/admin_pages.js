@@ -53,7 +53,7 @@ router.get("/pages/add-page", isHolder, (req, res) => {
     })
 })
 
-router.post("/pages/add-page", isHolder, [
+router.post("/pages/add-page", [
     check("title", "Title must have a value").notEmpty(),
     // check("content", "Content must have a value").notEmpty(),
     check("image", "You must upload an image").custom((value, { req }) => {
@@ -77,7 +77,6 @@ router.post("/pages/add-page", isHolder, [
     slug = slug.replace(/\s+/g, '-').toLowerCase()
     if (slug === "") slug = title.replace(/\s+/g, '-').toLowerCase()
 
-    console.log(req.files);
 
 
     const imageUrl = req.files !== null ? req.files.image.name : ""
@@ -143,7 +142,7 @@ router.post("/pages/add-page", isHolder, [
                                 page.save(err => {
                                     if (err) return console.log(err);
                                     req.flash("success_msg", "Page Created")
-                                    res.redirect(`/admin/pages/edit-page/${page._id}`)
+                                    res.redirect(`/cf5480873fae9cf6c5c9/pages/edit-page/${page._id}`)
                                 })
 
                             })
@@ -160,15 +159,13 @@ router.post("/pages/add-page", isHolder, [
 })
 
 //RE-ORDER PAGE
-router.post("/pages/reorder-page", isHolder, (req, res) => {
+router.post("/pages/reorder-page", (req, res) => {
     const { ids } = req.body
     var count = 0
 
     for (let i = 0; i < ids.length; i++) {
         const { id } = ids[i]
         count++;
-
-        // console.log(id);
 
         (function (count) {
             Page.findById(id, (err, page) => {
@@ -204,7 +201,7 @@ router.get("/pages/edit-page/:id", isHolder, (req, res) => {
 
 })
 
-router.post("/pages/edit-page/:id", isHolder, [
+router.post("/pages/edit-page/:id", [
     check("title", "Title must have a value").notEmpty(),
     check("content", "Content must have a value").notEmpty(),
     oneOf([
@@ -234,7 +231,6 @@ router.post("/pages/edit-page/:id", isHolder, [
 
     const imageUrl = req.files !== null ? req.files.image.name : ""
 
-    // console.log(editor);
 
 
     const errors = validationResult(req)
@@ -315,7 +311,7 @@ router.post("/pages/edit-page/:id", isHolder, [
                                             page.save(err => {
                                                 if (err) return console.log(err);
                                                 req.flash("success_msg", "Page Updated")
-                                                res.redirect("/admin/pages")
+                                                res.redirect("/cf5480873fae9cf6c5c9/pages")
                                             })
                                         })
                                         .catch(err => console.log(err))
@@ -346,7 +342,7 @@ router.post("/pages/edit-page/:id", isHolder, [
                                             page.save(err => {
                                                 if (err) return console.log(err);
                                                 req.flash("success_msg", "Page Updated")
-                                                res.redirect("/admin/pages")
+                                                res.redirect("/cf5480873fae9cf6c5c9/pages")
                                             })
                                         })
                                         .catch(err => console.log(err))
@@ -362,7 +358,7 @@ router.post("/pages/edit-page/:id", isHolder, [
                         page.save(err => {
                             if (err) return console.log(err);
                             req.flash("success_msg", "Page Updated")
-                            res.redirect("/admin/pages")
+                            res.redirect("/cf5480873fae9cf6c5c9/pages")
                         })
 
                     }
@@ -383,84 +379,6 @@ router.post("/pages/edit-page/:id", isHolder, [
     }
 })
 
-//Image Upload
-router.post("/pages/imageUpload", isHolder, (req, res) => {
-    const imageData = req.files !== null ? req.files.upload.data : ""
-    const imageName = req.files !== null ? req.files.upload.name : ""
-    const { id } = req.query
-
-    console.log(req.query);
-
-
-    sharp(imageData)
-        .toFormat("jpeg")
-        .jpeg({
-            quality: 85
-        })
-        .toBuffer((err, data, info) => {
-            console.log(data);
-
-            if (err) console.log(err);
-
-            const randomNumber = crypto.randomBytes(6).toString('hex')
-
-            dbx.filesUpload({
-                path: `/Blogs/${id}/gallery/${randomNumber}.jpeg`,
-                contents: data
-            })
-                .then(response => {
-
-                    dbx.sharingCreateSharedLink({
-                        path: `/Blogs/${id}/gallery/${randomNumber}.jpeg`
-                    })
-                        .then(data => {
-                            let { url } = data
-                            const answer = url.replace(/w{3}.dropbox/g, "dl.dropboxusercontent").replace(/[?]dl=0/g, "")
-
-                            console.log(answer)
-
-
-                            // let html = `
-                            //     <script>   
-                            //     var funcNum = 2;    
-                            //     var url     = "${answer}";   
-                            //     var message = "Uploaded file successfully";    
-                            //     window.parent.CKEDITOR.tools.callFunction(funcNum, url, message);
-                            //     </script>
-                            // `
-                            // "url": `${answer}`,
-
-                            const urlAnd = {
-                                "resourceType": "Files",
-                                "currentFolder": {
-                                    "path": "/Images",
-                                    "url": `${answer}`,
-                                    "acl": 255
-                                },
-                                "fileName": `${imageName}`,
-                                "newName": `${randomNumber}.jpeg`,
-                                "renamed": 1,
-                                "uploaded": 1
-                            }
-
-                            // console.log(html);
-
-                            // res.send(html);
-
-                            // res.status(200).json({ url: answer })
-
-                            console.log(urlAnd);
-
-                            res.json(urlAnd)
-
-                        })
-                        .catch(err => console.log(err))
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        })
-})
 
 //DELETE PAGE
 router.get("/pages/delete-page/:id", isHolder, (req, res) => {
@@ -470,13 +388,12 @@ router.get("/pages/delete-page/:id", isHolder, (req, res) => {
         path: `/Blogs/${id}`
     })
         .then(response => {
-            console.log(response)
             Page.findOneAndDelete({ anotherId: id }, (err) => {
                 if (err) console.log(err)
             })
 
             req.flash("success_msg", "Page Removed")
-            res.redirect("/admin/pages")
+            res.redirect("/cf5480873fae9cf6c5c9/pages")
         })
         .catch(err => console.log(err))
 })
@@ -485,7 +402,7 @@ router.get("/pages/delete-page/:id", isHolder, (req, res) => {
 * Page Gallery
 */
 
-router.post("/pages/product-gallery/:id", isHolder, (req, res) => {
+router.post("/pages/product-gallery/:id", (req, res) => {
     const pageImage = req.files.file
     const { id } = req.params
     const imageData = pageImage.data
@@ -607,7 +524,7 @@ router.get("/products/add-product", isHolder, (req, res) => {
 })
 
 
-router.post("/products/add-product", isHolder, [
+router.post("/products/add-product", [
     check("title", "Title must have a value").notEmpty(),
     check("desc", "Description must have a value").notEmpty(),
     check("price", "Price must have a value").isDecimal(),
@@ -711,7 +628,7 @@ router.post("/products/add-product", isHolder, [
                                     if (err) return console.log(err);
 
                                     req.flash("success_msg", "Product Created")
-                                    res.redirect("/admin/products")
+                                    res.redirect("/cf5480873fae9cf6c5c9/products")
                                 })
                             })
                             .catch(err => console.log(err))
@@ -751,7 +668,7 @@ router.get("/products/edit-product/:id", isHolder, (req, res) => {
     })
 })
 
-router.post("/products/edit-product/:id", isHolder, [
+router.post("/products/edit-product/:id", [
     check("title", "Title must have a value").notEmpty(),
     check("desc", "Description must have a value").notEmpty(),
     check("price", "Price must have a value").isDecimal(),
@@ -842,16 +759,14 @@ router.post("/products/edit-product/:id", isHolder, [
                             dbx.filesDelete({
                                 path: `/Images/${p.anotherId}/${p.imgName}`,
                             })
-                                .then(data => {
-                                    console.log("DONE");
-                                })
+                                .then(() => { })
                                 .catch(err => console.log(err))
 
                             dbx.filesUpload({
                                 path: `/Images/${p.anotherId}/${imageUrl}`,
                                 contents: imageData
                             })
-                                .then(data => {
+                                .then(() => {
 
                                     dbx.sharingCreateSharedLink({
                                         path: `/Images/${p.anotherId}/${imageUrl}`,
@@ -875,7 +790,7 @@ router.post("/products/edit-product/:id", isHolder, [
                                                 if (err) return console.log(err);
 
                                                 req.flash("success_msg", "Product Created")
-                                                res.redirect("/admin/products")
+                                                res.redirect("/cf5480873fae9cf6c5c9/products")
                                             })
                                         })
                                         .catch(err => console.log(err))
@@ -913,7 +828,7 @@ router.post("/products/edit-product/:id", isHolder, [
                                                 if (err) return console.log(err);
 
                                                 req.flash("success_msg", "Product Created")
-                                                res.redirect("/admin/products")
+                                                res.redirect("/cf5480873fae9cf6c5c9/products")
                                             })
                                         })
                                         .catch(err => console.log(err))
@@ -935,7 +850,7 @@ router.post("/products/edit-product/:id", isHolder, [
 
 
                             req.flash("success_msg", "Product Edited")
-                            res.redirect("/admin/products")
+                            res.redirect("/cf5480873fae9cf6c5c9/products")
                         })
                     }
                 })
@@ -952,13 +867,12 @@ router.get("/products/delete-product/:id", isHolder, (req, res) => {
         path: `/Images/${id}`
     })
         .then(response => {
-            console.log(response)
             Product.findOneAndDelete({ anotherId: id }, (err) => {
                 console.log(err)
             })
 
             req.flash("success_msg", "Successfuly deleted product")
-            res.redirect("/admin/products")
+            res.redirect("/cf5480873fae9cf6c5c9/products")
         })
         .catch(err => console.log(err))
 
@@ -969,7 +883,7 @@ router.get("/products/delete-product/:id", isHolder, (req, res) => {
  *  Post PRODUCT GALLERY 
 */
 
-router.post("/products/product-gallery/:id", isHolder, (req, res) => {
+router.post("/products/product-gallery/:id", (req, res) => {
     const productImage = req.files.file
     const { id } = req.params
     const imageData = productImage.data
