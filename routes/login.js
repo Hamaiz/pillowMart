@@ -422,7 +422,7 @@ router.post('/recover', forwardAuthenticated, async (req, res) => {
             const msg = {
                 to: email,
                 from: `PillowMart <${process.env.GM_EMAIL}>`,
-                subject: "Confirmation Email",
+                subject: "Password Confirmation Email",
                 html: output
 
             }
