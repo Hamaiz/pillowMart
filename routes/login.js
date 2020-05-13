@@ -352,7 +352,7 @@ router.post('/recover', forwardAuthenticated, async (req, res) => {
                                                                 Mart</span>
                                                         </h1>
                                                         <div style="color: #839197; margin-bottom: 10px;">Hello <strong
-                                                                style="color: #325a67;">Ali</strong>,
+                                                                style="color: #325a67;">${user.name}</strong>,
                                                         </div>
                                                         <p>It seems that you are having trouble remembering your password.
                                                             Inorder to create a new password, please click the button below:
@@ -376,7 +376,7 @@ router.post('/recover', forwardAuthenticated, async (req, res) => {
                                                             style="word-break: break-all;margin:30px 15px 50px;text-align: center;">
                                                             <a href="${urls}"
                                                                 style="text-align:center;color:#3899fa;text-decoration:none;font-size: 15px;">
-                                                               ${urls}
+                                                                ${urls}
                                                             </a>
                                                         </div>
     
@@ -505,6 +505,7 @@ router.post('/reset/:token', forwardAuthenticated, async (req, res) => {
             user.password = password;
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
+            user.confirmed = true
 
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(user.password, salt, (err, hash) => {
