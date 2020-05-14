@@ -30,7 +30,8 @@
                         </ul>
                     </div>
                     <div class="hearer_icon d-flex align-items-center">
-                        <% if (user && user.admin === 1) { %>
+                        <% //console.log(locals.user) %>
+                        <% if (locals.user && locals.user.admin === 1) { %>
 
                         <% const firstName = user.name.charAt(0) %>
 

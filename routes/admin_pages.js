@@ -672,7 +672,7 @@ router.post("/products/edit-product/:id", [
     check("title", "Title must have a value").notEmpty(),
     check("desc", "Description must have a value").notEmpty(),
     check("price", "Price must have a value").isDecimal(),
-    check("dimensions", "Dimensions should be in this form, 30 x 30 x 30").matches(/(^\d+ x \d+ x \d+)/g),
+    check("dimensions", "Dimensions should be in this form, 30 x 30 x 30").not().matches(/(^\d+ x \d+ x \d+)/g),
     check("weight", "Weight must be numeric").isNumeric(),
     oneOf([
         check("pimage"),
@@ -695,7 +695,7 @@ router.post("/products/edit-product/:id", [
 
 ], (req, res) => {
     //REQUEST BODY
-    let { title, desc, price, pimage, anotherId, dimensions, weight, availability } = req.body
+    let { title, desc, price, pimage, anotherId, dimensions, weight, availability, galleryImages } = req.body
     const slug = title.replace(/\s+/g, '-').toLowerCase()
     const imageUrl = req.files !== null ? req.files.image.name : ""
 
@@ -723,7 +723,9 @@ router.post("/products/edit-product/:id", [
             id,
             dimensions,
             weight,
-            availability
+            availability,
+            anotherId,
+            galleryImages: JSON.parse(galleryImages)
         })
 
     } else {
@@ -745,7 +747,10 @@ router.post("/products/edit-product/:id", [
                     id,
                     dimensions,
                     weight,
-                    availability
+                    availability,
+                    anotherId,
+                    galleryImages: product.galleryImages,
+
                 })
 
             } else {

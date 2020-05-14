@@ -87,8 +87,8 @@ app.use(methodOverride("_method"))
 
 //Cart
 app.get("*", (req, res, next) => {
-    res.locals.cart = req.session.cart
     res.locals.user = req.user || null
+    res.locals.cart = req.session.cart
     next()
 })
 
