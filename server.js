@@ -35,6 +35,7 @@ const confirmationRouter = require('./routes/confirmation')
 const contactRouter = require("./routes/contact")
 const cartRouter = require("./routes/cart")
 const blogRouter = require("./routes/blog")
+const checkoutRouter = require('./routes/chechout')
 const nm_dependencies = ['html5sortable', "swiper", "bootstrap.native", "bootstrap-css-only", "@fortawesome", "@ckeditor", "dropzone", "@editorjs", 'editorjs-html']
 
 
@@ -72,9 +73,11 @@ app.use(function (req, res, next) {
     if (req.method == "POST" && req.url == '/accounts/login') {
         if (req.body.remember_me) {
             req.session.cookie.maxAge = 2592000000
+        } else {
+            req.session.cookie.maxAge = 432000000
         }
     } else {
-        req.session.cookie.expires = 21600000
+        req.session.cookie.expires = 172800000
     }
     next()
 })
@@ -112,6 +115,7 @@ app.use(`/cf5480873fae9cf6c5c9`, adminRouter)
 app.use("/confirmation", confirmationRouter)
 app.use("/cart", cartRouter)
 app.use("/blog", blogRouter)
+app.use("/checkout", checkoutRouter)
 
 
 

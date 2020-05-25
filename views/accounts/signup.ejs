@@ -12,13 +12,14 @@
                         </h3>
                         <%- //include("../partials/message") %>
 
-                        <form action="/accounts/register" class="row contact_form" method="POST" id="signUpForm">
+                        <form action="/accounts/register" class="row contact_forms formSubmit text-center" method="POST"
+                            id="signUpForm">
 
                             <div class="col-md-12 form-group p_star">
                                 <input type="text" name="name" placeholder="Username" class="form-control" required
                                     value=<%= typeof name != "undefined" ? name: "" %>>
                             </div>
-                            <div class="col-md-12 form-group p_star">
+                            <div class="col-md-12 form-group ">
                                 <input type="email" name="email" placeholder="Email" class="form-control" required
                                     value=<%= typeof email != "undefined" ? email: "" %>>
                             </div>
@@ -30,7 +31,7 @@
                             </div>
 
                             <div class="col-md-12 form-group">
-                                <button type="submit" class="btn_3">
+                                <button type="submit" class="btn_3 disabling">
                                     Sign Up
                                 </button>
                                 <div class="register">

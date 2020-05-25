@@ -48,6 +48,7 @@
                                 <a href="/accounts/login" class="nav-link d-lg-none d-block">
                                     <i class="fas fa-sign-in-alt"></i> Login</a>
                             </li>
+
                             <% } %>
 
                         </ul>
@@ -81,8 +82,17 @@
                                             <% } %>
                                         </a>
                                     </li>
+
+                                    <li class="p4">
+                                        <div class="mode">
+                                            <span></span>
+                                        </div>
+                                    </li>
+
                                     <% if (user && user.admin === 1) { %>
-                                    <a href="/cf5480873fae9cf6c5c9" class="menu_pannel">Pannel</a>
+                                    <li>
+                                        <a href="/cf5480873fae9cf6c5c9" class="menu_pannel">Pannel</a>
+                                    </li>
                                     <% } %>
 
                                     <hr>
@@ -99,6 +109,9 @@
                     <a href="/accounts/register" class="d-lg-block d-none"><i class="fas fa-user"></i> Sign Up</a>
                     <a href="/accounts/login" class="d-lg-block d-none"><i class="fas fa-sign-in-alt"></i>Login</a>
 
+                    <div class="mode ml-2">
+                        <span></span>
+                    </div>
 
                     <a href="/cart" class="icons_mobile">
                         <i class="fas fa-shopping-cart"></i>

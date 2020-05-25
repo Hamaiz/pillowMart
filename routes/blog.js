@@ -3,7 +3,6 @@ const Page = require("../models/Pages")
 
 //Blogs
 router.get("/", (req, res) => {
-    console.log(req.session);
 
     Page.find({}).sort({ sorting: 1 }).exec((err, pages) => {
         res.render("blog/index", {
@@ -22,11 +21,6 @@ router.get('/:slug', (req, res) => {
 
     Page.findOne({ slug: slug }, (err, page) => {
         let { title, img_url, slug, content } = page
-
-        const another = JSON.parse(content).blocks
-        another.forEach(item => {
-            console.log(item)
-        })
 
         let html = []
         for (let block of JSON.parse(content).blocks) {

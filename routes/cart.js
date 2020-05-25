@@ -62,27 +62,10 @@ router.get("/add/:id", async (req, res) => {
 
             }
         }
-        console.log(req.session.cart)
         res.redirect("back")
     })
 
 })
-
-
-// router.get("/clear/:id", (req, res) => {
-//     console.log(req.params.id)
-//     const { id } = req.params
-//     const { cart } = req.session
-
-//     cart.forEach((element, index, object) => {
-//         if (id === element.id) {
-//             object.splice(index, 1)
-//         }
-//     });
-//     req.flash("success_msg", "Product removed from cart")
-//     res.redirect("back")
-
-// })
 
 router.get("/update/:id", (req, res) => {
 
@@ -94,7 +77,8 @@ router.get("/update/:id", (req, res) => {
         if (cart[i].id === id) {
             switch (action) {
                 case "add":
-                    cart[i].qty++
+                    if (cart[i].qty < 10)
+                        cart[i].qty++
                     break;
 
                 case "remove":

@@ -10,12 +10,17 @@
     <meta name="description" content="PillowMart is a mart dedicated for selling comfy pillows">
     <meta name="keywords" content="Pillows, Pillowmart, mart, bed">
     <title>Pillow Mart <%= pageName %> </title>
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/logos.png">
 
     <!--* CSS -->
     <link rel="stylesheet" href="/bootstrap-css-only/css/bootstrap.min.css">
     <link rel="stylesheet" href="/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+
+    <!-- JS -->
+    <% if (typeof script === "boolean") { %>
+    <script src="https://js.stripe.com/v3/"></script>
+    <% } %>
 </head>
 
 <body>
@@ -29,11 +34,48 @@
         </div>
     </div>
 
+
+
     <% if(showHeader){ %>
     <%- include("../partials/header") %>
     <br>
     <%- include("../partials/message") %>
     <% } %>
+
+
+    <div class="modal" id="disclaimer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="text-danger">Please Read</h5>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <div class="modal-body">
+                    <div>
+                        If you haven't already figured it out yet, this is not a <span
+                            class="text-danger"><b>REAL</b></span>
+                        website.
+                        Yes, you have heared that right. This is not a real website I mean this is a real website but
+                        not a shop.<br><br>
+                    </div>
+
+                    This website is made by <a href="https://thanksdear.herokuapp.com/">ThanksDear</a> as a
+                    portfolio project.
+                    <br><br>
+                    <div class="">
+                        <b>Side Note: </b>I myself kind of hoped for it to be a real shop, so that i could by some soft
+                        pillows.
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <%- body %>
     <%- include("../partials/footer") %>
 
@@ -41,6 +83,7 @@
     <!--* Script *-->
     <script src="/bootstrap.native/dist/bootstrap-native-v4.min.js"></script>
     <script src="/js/main.js"></script>
+
 </body>
 
 </html>

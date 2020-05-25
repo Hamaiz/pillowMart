@@ -85,8 +85,8 @@
                                 </tr>
                                 <%  } else{%>
                                 <tr>
-                                    <td colspan="5" class="text-center">
-                                        You have no items in cart
+                                    <td colspan="5" class="text-center noItem">
+                                        <div class="text-center">No items in cart</div>
                                     </td>
                                 </tr>
                                 <% } %>
@@ -102,6 +102,11 @@
                     <button class="btn_1">This</button>
                 </div>
             </div> -->
+            <% if(typeof cart !== "undefined"){ %>
+            <div class="col-lg-10 text-right pt-5">
+                <a href="/checkout" class="btn_1">Buy Items</a>
+            </div>
+            <% } %>
         </div>
     </div>
 </div>

@@ -1,12 +1,60 @@
-console.log = function () { }
+// console.log = function () { }
+
+//*===============Toggle Night MODE=================*//
+let darkMode = localStorage.getItem("darkmode")
+let mode = document.querySelector(".mode")
+if (mode) {
+    if (darkMode === "enabled") {
+        enableDarkMode()
+    } else {
+        disableDarkMode()
+    }
+
+    function enableDarkMode() {
+        document.body.classList.add("dark")
+        mode.classList.add("active")
+        localStorage.setItem("darkmode", "enabled")
+    }
+
+    function disableDarkMode() {
+        document.body.classList.remove("dark")
+        mode.classList.remove("active")
+        localStorage.setItem("darkmode", null)
+    }
+
+    mode.addEventListener("click", () => {
+        darkMode = localStorage.getItem("darkmode")
+        if (darkMode !== "enabled") {
+            enableDarkMode()
+        } else {
+            disableDarkMode()
+        }
+    })
+}
+
+
 //*===============Loader=================*//
 document.body.style.overflow = "hidden";
-window.addEventListener("load", () => {
+window.addEventListener("load", function () {
     setTimeout(() => {
-        document.querySelector(".loader").classList.add("loaded")
         document.body.style.overflowY = "visible"
+        document.querySelector(".loader").classList.add("loaded")
     }, 100);
 })
+
+
+//*===============POP UP=================*//
+let popUp = localStorage.getItem("popup")
+let disclaimer = document.getElementById("disclaimer")
+let myModalInstance = new Modal(disclaimer, { keyboard: true })
+if (disclaimer) {
+    if (popUp !== "shown") {
+        myModalInstance.show();
+        localStorage.setItem('popup', 'shown')
+    } else {
+        myModalInstance.hide()
+    }
+}
 
 
 
@@ -88,13 +136,12 @@ const cartBtn = document.querySelector(".detail_cart_btn")
 if (itemInput) {
     incrementInput.addEventListener("click", () => {
         let value = itemInput.value
-        value++
+        if (value < 10) value++
         itemInput.value = value
 
-        // const urlId = window.location.pathname.substring(5)
         let urlId = cartBtn.href
-        if (urlId.match(/([?]qty=\d)/g)) {
-            urlId = urlId.replace(/([?]qty=\d)/g, "")
+        if (urlId.match(/([?]qty=\d+)/g)) {
+            urlId = urlId.replace(/([?]qty=\d+)/g, "")
             const btnAnchor = urlId + "?qty=" + itemInput.value
             cartBtn.href = btnAnchor
         } else {
@@ -112,8 +159,8 @@ if (itemInput) {
         // const btnAnchor = "/cart/add" + urlId + "?qty=" + itemInput.value
         // cartBtn.href = btnAnchor
         let urlId = cartBtn.href
-        if (urlId.match(/([?]qty=\d)/g)) {
-            urlId = urlId.replace(/([?]qty=\d)/g, "")
+        if (urlId.match(/([?]qty=\d+)/g)) {
+            urlId = urlId.replace(/([?]qty=\d+)/g, "")
             const btnAnchor = urlId + "?qty=" + itemInput.value
             cartBtn.href = btnAnchor
         } else {
@@ -228,3 +275,14 @@ if (copyText) {
         })
     })
 }
+
+//*============STRIPE===========*//
+// var stripe = Stripe("pk_test_Z5aQdLUmgOwmsOwvClIF3yZr00diPzHmBM");
+// let sku = ""
+
+// async function startCheckout() {
+//     const { error } = await stripe.redirectToCheckout()
+//     if (error) {
+//         alert("error")
+//     }
+// }
