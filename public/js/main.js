@@ -46,8 +46,8 @@ window.addEventListener("load", function () {
 //*===============POP UP=================*//
 let popUp = localStorage.getItem("popup")
 let disclaimer = document.getElementById("disclaimer")
-let myModalInstance = new Modal(disclaimer, { keyboard: true })
 if (disclaimer) {
+    let myModalInstance = new Modal(disclaimer, { keyboard: true })
     if (popUp !== "shown") {
         myModalInstance.show();
         localStorage.setItem('popup', 'shown')
@@ -60,7 +60,7 @@ if (disclaimer) {
 
 //*==============Scroll===============*//
 window.onscroll = getScrollPosition;
-
+// if (document.querySelector(".main_menu")) {
 function getScrollPosition() {
     var scrollObject = {
         y: window.pageYOffset
@@ -72,24 +72,24 @@ function getScrollPosition() {
         mainMenu.classList.add("menu_fixed")
     }
 }
-
+// }
 
 //*=============Hamburger Change=============//
 var hamburger = document.getElementById("hamburger")
 var barsMobile = document.getElementById("bars-mobile")
 
+if (hamburger) {
+    hamburger.addEventListener("click", () => {
+        if (barsMobile.className == "fas fa-bars") {
+            barsMobile.className = "fas fa-times"
+            document.body.style.overflowY = "hidden"
+        } else {
+            barsMobile.className = "fas fa-bars"
+            document.body.style.overflowY = "visible"
+        }
 
-hamburger.addEventListener("click", () => {
-    if (barsMobile.className == "fas fa-bars") {
-        barsMobile.className = "fas fa-times"
-        document.body.style.overflowY = "hidden"
-    } else {
-        barsMobile.className = "fas fa-bars"
-        document.body.style.overflowY = "visible"
-    }
-
-})
-
+    })
+}
 
 //*==============Carousel================*//
 const swiperContainer = document.querySelector(".swiper-container")
@@ -275,14 +275,3 @@ if (copyText) {
         })
     })
 }
-
-//*============STRIPE===========*//
-// var stripe = Stripe("pk_test_Z5aQdLUmgOwmsOwvClIF3yZr00diPzHmBM");
-// let sku = ""
-
-// async function startCheckout() {
-//     const { error } = await stripe.redirectToCheckout()
-//     if (error) {
-//         alert("error")
-//     }
-// }

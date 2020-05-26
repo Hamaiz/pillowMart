@@ -16,14 +16,7 @@ router.get("/", ensureAuthenticated, async (req, res) => {
             let sub = e.qty * e.price
             total += +sub
         })
-        // "tok_1GlhlxH6M2WreTgrLGgY3iMV"
-        // stripe.tokens.retrieve(
-        //     'tok_1GlhlxH6M2WreTgrLGgY3iMV',
-        //     (err, token) => {
-        //         console.log(token);
 
-        //     }
-        // )
         //Rendering Page
         res.render("cart/checkout", {
             pageName: "| Checkout",

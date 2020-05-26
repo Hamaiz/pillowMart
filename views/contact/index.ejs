@@ -4,19 +4,19 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <form class="contact_form">
+                <form class="contact_form" action="/contact" method="POST">
                     <div class="contact_form_heading">Send Us a Message</div>
                     <div class="contact_form_input">
-                        <input type="text" required placeholder="Full Name">
+                        <input type="text" required placeholder="Full Name" name="name" value="<%= name %>">
                     </div>
                     <div class="contact_form_input">
-                        <input type="email" required placeholder="E-mail">
+                        <input type="email" required placeholder="E-mail" name="email" value="<%= email %>">
                     </div>
                     <div class="contact_form_input">
-                        <input type="text" required placeholder="Phone">
+                        <input type="tel" required placeholder="Phone" name="phone" value="<%= phone %>">
                     </div>
-                    <textarea name="" id="" cols="30" rows="10" class="contact_form_text"
-                        placeholder="Your Message"></textarea>
+                    <textarea id="" cols="30" rows="10" class="contact_form_text" placeholder="Your Message"
+                        value="<%= message %>" name="message"></textarea>
                     <button type="submit" class="contact_form_send">
                         Send
                     </button>

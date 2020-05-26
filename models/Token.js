@@ -12,10 +12,18 @@ const tokenSchema = new mongoose.Schema({
     product: [
         {
             _id: false,
-            id: String,
+            id: {
+                type: mongoose.Schema.Types.ObjectId,
+                required: true,
+                ref: "Product"
+            },
             qty: Number,
         }
     ],
+    paid: {
+        type: Boolean,
+        default: false
+    },
     modifiedOn: {
         type: Date,
         default: Date.now

@@ -6,11 +6,15 @@ const Dropbox = require("dropbox").Dropbox;
 const crypto = require("crypto")
 const sharp = require("sharp")
 const { isHolder } = require('../config/auth')
-// const isHolder = auth.isHolder
+const stripe = require("stripe")(process.env.STRIPE_KEY)
+
 
 //! MODELS
 const Page = require("../models/Pages")
 const Product = require("../models/Product")
+const Token = require("../models/Token")
+const Contact = require("../models/Contact")
+const User = require("../models/User")
 
 //!Dropbox
 let dbx = new Dropbox({
@@ -20,11 +24,105 @@ let dbx = new Dropbox({
 
 
 //*========Admin Route=========*//
-router.get("/", isHolder, (req, res) => {
-    // res.send('Hello')
-    res.send("Bad Request")
+router.get("/", isHolder, async (req, res) => {
+    try {
+        const justToken = await Token.find({ paid: false })
+        const tokens = await Token.find({ paid: false }).populate('user').populate('product.id').exec()
+        let tokenDetail = []
+        await justToken.forEach(async element => {
+            const data = await stripe.tokens.retrieve(element.token)
+            tokenDetail.push({
+                street: data.card.address_line1,
+                city: data.card.address_city,
+                zip: data.card.address_zip
+            })
+        });
+        const balance = await stripe.balance.retrieve()
+        const contact = await Contact.find()
+
+
+        res.render('admin/admin', {
+            layout: false,
+            token: tokens,
+            balance,
+            tokenDetail,
+            contact
+        });
+    } catch (error) {
+        console.log(error.message);
+        res.sendStatus(400)
+    }
 })
 
+router.get("/delete-contact/:id", isHolder, async (req, res) => {
+    try {
+        const { id } = req.params
+        let contact = await Contact.findById(id)
+        await contact.remove()
+        res.redirect("back")
+    } catch (error) {
+        req.flash("error_msg", "An error occured")
+        res.redirect("back")
+    }
+})
+
+router.post("/edit-paid/:id", async (req, res) => {
+    try {
+        if (req.user.admin === 1) {
+            const { id } = req.params
+            let token = await Token.findById(id)
+            token.paid = true
+            await token.save()
+            res.sendStatus(200)
+        } else {
+            res.sendStatus(400)
+        }
+    } catch (error) {
+        res.sendStatus(400)
+    }
+})
+
+//Users
+router.get("/users", isHolder, async (req, res) => {
+    try {
+        const user = await User.find({ admin: 0 })
+
+        res.render('admin/admin-user', {
+            layout: false,
+            user
+        });
+    } catch (error) {
+        console.log(error.message);
+        res.sendStatus(400)
+    }
+})
+
+//Items
+router.get("/items", isHolder, async (req, res) => {
+    try {
+        let tokenDetail = []
+        const justToken = await Token.find()
+        await justToken.forEach(async element => {
+            const data = await stripe.tokens.retrieve(element.token)
+            tokenDetail.push({
+                street: data.card.address_line1,
+                city: data.card.address_city,
+                zip: data.card.address_zip
+            })
+        });
+
+        const tokens = await Token.find().populate('user').populate('product.id').exec()
+
+        res.render('admin/admin-items', {
+            layout: false,
+            token: tokens,
+            tokenDetail
+        });
+    } catch (error) {
+        console.log(error.message);
+        res.sendStatus(400)
+    }
+})
 
 //*==========Pages Route=========*//
 router.get("/pages", isHolder, (req, res) => {
@@ -89,7 +187,6 @@ router.post("/pages/add-page", [
 
         errors.errors.forEach(element => {
             errorsArray.push({ msg: element.msg })
-            console.log(element.msg)
         });
 
         res.render("admin/add-page", {
