@@ -68,6 +68,7 @@ function initialize(passport) {
                         let newUser = new User()
                         newUser.name = profile._json.name
                         newUser.email = profile._json.email
+                        newUser.admin = 0
                         newUser.confirmed = true
                         newUser.google.id = profile.id
                         newUser.google.token = accessToken
