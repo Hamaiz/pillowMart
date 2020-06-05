@@ -42,7 +42,6 @@ function initialize(passport) {
         callbackURL: "https://pillowmart.herokuapp.com/accounts/google/callback"
     },
         async (accessToken, refreshToken, profile, done) => {
-            console.log(profile);
             process.nextTick(function () {
                 User.findOne({
                     $or: [
