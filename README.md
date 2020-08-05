@@ -25,3 +25,5 @@ Enjoy! :)
 * [NodeJs](https://nodejs.org/en/) - BackEnd written with
 * [MongoDB](https://www.mongodb.com/) - Database used
 * [Stripe](https://stripe.com/) - Checkout implemenation done with
+## Contributors
+* **Ali Hamaiz** - [Portfolio](https://thanksdear.herokuapp.com/)
