@@ -1,5 +1,6 @@
 # PillowMart
-Full Stack application made with NodeJs, ejs and MongoDB. It has a checkout implementaion with Stripe.
+Full Stack application made with NodeJs, ejs and MongoDB. Checkout implementaion is with Stripe.
+[PillowMart](https://pillowmart.herokuapp.com)
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. You have to have NodeJs installed on your machine.
 ### Installing
