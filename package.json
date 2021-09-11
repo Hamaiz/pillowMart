@@ -45,7 +45,7 @@
     "passport-local": "^1.0.0",
     "sharp": "^0.25.4",
     "stripe": "^8.92.0",
-    "swiper": "^5.4.5"
+    "swiper": "^7.0.5"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
